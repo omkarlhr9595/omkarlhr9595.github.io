@@ -1,1 +1,0 @@
-[Link to portfolio](https://omkarlhr9595.github.io)
