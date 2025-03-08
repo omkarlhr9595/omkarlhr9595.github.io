@@ -1,4 +1,4 @@
-name: Build and Deploy Vite App with Firebase
+name: Deploy to GitHub Pages
 
 on:
   push:
