@@ -20,7 +20,6 @@ function App() {
               overlay.classList.add(
                 "absolute",
                 "inset-0",
-                "bg-white",
                 "z-10",
                 "scale-0",
                 "rounded-full"
@@ -127,12 +126,6 @@ function App() {
       const img = container?.querySelector("img");
       const heading = container?.querySelector("h1");
 
-      // Add null check for wrapper
-      if (wrapper) {
-        // Create initial white background
-        wrapper.classList.add("bg-white");
-      }
-
       // Add null check for container
       if (container) {
         // Set initial state
@@ -142,7 +135,6 @@ function App() {
         setTimeout(() => {
           // Change background
           if (wrapper) {
-            wrapper.classList.replace("bg-white", "bg-bgblack");
             wrapper.classList.add("transition-colors", "duration-700");
           }
 
