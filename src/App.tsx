@@ -1,14 +1,19 @@
-import peep25 from "./assets/peep-25.svg";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { JSX } from "react";
+import HomePage from "./pages/Home";
+import ProjectsPage from "./pages/Projects";
+import { AnimatePresence } from "framer-motion";
 
-function App() {
+function App(): JSX.Element {
+  const location = useLocation();
   return (
-    <div className="h-screen w-full grid place-items-center">
-      <div className="container h-full w-full flex flex-col items-center justify-center">
-        <img src={peep25} alt="" className="w-40 sm:w-64" />
-        <h1 className="text-bgwhite text-4xl sm:text-7xl font-body">
-          Work In Progress
-        </h1>
-      </div>
+    <div className="h-screen w-full grid place-items-center overflow-hidden relative bg-black">
+      <AnimatePresence mode="wait">
+        <Routes key={location.pathname} location={location}>
+          <Route index path="/" element={<HomePage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }

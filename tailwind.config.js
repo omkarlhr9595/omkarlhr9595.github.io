@@ -3,12 +3,18 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
       fontFamily: {
         body: ["Pixelify Sans", "sans-serif"],
       },
       colors: {
-        bgblack: "#161617",
-        bgwhite: "#FAFAFC",
+        black: "#161617",
+        white: "#FAFAFC",
       },
     },
   },
