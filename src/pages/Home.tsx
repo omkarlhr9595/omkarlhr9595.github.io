@@ -6,8 +6,8 @@ import Transition from "../hooks/Transition";
 function Home(): JSX.Element {
   return (
     <div className="container h-full w-full flex flex-col items-center justify-center z-20">
-      <img src={peep25} alt="" className="w-40 sm:w-64 animate-bubble" />
-      <h1 className="text-bgwhite text-4xl sm:text-7xl font-body mt-4 text-center animate-slide-up">
+      <img src={peep25} alt="" className="w-40 sm:w-64" />
+      <h1 className="text-white text-4xl sm:text-7xl font-body mt-4 text-center">
         Work In Progress
       </h1>
       <Link

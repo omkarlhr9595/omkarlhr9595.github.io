@@ -13,8 +13,8 @@ export default {
         body: ["Pixelify Sans", "sans-serif"],
       },
       colors: {
-        bgblack: "#161617",
-        bgwhite: "#FAFAFC",
+        black: "#161617",
+        white: "#FAFAFC",
       },
     },
   },

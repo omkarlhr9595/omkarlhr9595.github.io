@@ -50,9 +50,7 @@ const Projects = () => {
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
       <div className="flex justify-between items-center mb-12">
-        <h1 className="text-4xl font-bold text-bgwhite font-body animate-slide-up">
-          My Projects
-        </h1>
+        <h1 className="text-4xl font-bold text-white font-body">My Projects</h1>
         <Link
           to="/"
           className="border border-gray-700 hover:border-gray-500 text-white px-6 py-2 rounded-full transition-colors duration-300 font-body opacity-0 animate-[fadeIn_0.7s_ease-out_0.5s_forwards]"
