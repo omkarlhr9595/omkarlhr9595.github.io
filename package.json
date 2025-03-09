@@ -10,8 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@barba/core": "^2.10.3",
-    "@barba/prefetch": "^2.2.0",
+    "framer-motion": "^12.4.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0"

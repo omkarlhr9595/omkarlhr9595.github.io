@@ -1,17 +1,11 @@
 import { Link } from "react-router-dom";
 import { JSX } from "react";
-import useBarba from "../hooks/useBarba";
 import peep25 from "../assets/peep-25.svg";
+import Transition from "../hooks/Transition";
 
 function Home(): JSX.Element {
-  useBarba();
-
   return (
-    <div
-      data-barba="container"
-      data-barba-namespace="home"
-      className="container h-full w-full flex flex-col items-center justify-center z-20"
-    >
+    <div className="container h-full w-full flex flex-col items-center justify-center z-20">
       <img src={peep25} alt="" className="w-40 sm:w-64 animate-bubble" />
       <h1 className="text-bgwhite text-4xl sm:text-7xl font-body mt-4 text-center animate-slide-up">
         Work In Progress
@@ -26,4 +20,10 @@ function Home(): JSX.Element {
   );
 }
 
-export default Home;
+export default function HomePage() {
+  return (
+    <Transition>
+      <Home />
+    </Transition>
+  );
+}
