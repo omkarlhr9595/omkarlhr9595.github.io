@@ -5,8 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>omkarlohar.me</title>
   </head>
-  <body class="bg-black">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="bg-white">
+    <div class="h-screen w-full grid place-items-center overflow-hidden relative bg-white">
+      <div data-barba="wrapper" class="w-full h-full relative">
+        <div class="loading-container">
+          <div class="loading-screen">
+            <div class="rounded-div-wrap top">
+              <div class="rounded-div"></div>
+            </div>
+            <div class="rounded-div-wrap bottom">
+              <div class="rounded-div"></div>
+            </div>
+            <div class="loading-words">
+              <h2></h2>
+            </div>
+          </div>
+        </div>
+        <div data-barba="container" data-barba-namespace="home" class="w-full h-full">
+          <div class="container h-full w-full flex flex-col items-center justify-center z-20 mx-auto">
+            <img src="/assets/peep-25.svg" alt="" class="w-40 sm:w-64" />
+            <h1 class="text-black text-4xl sm:text-7xl font-body mt-4 text-center">
+              Work In Progress
+            </h1>
+            <a
+              href="/projects/"
+              class="mt-8 px-6 py-3 rounded-full text-lg text-black font-body opacity-0 animate-[fadeIn_0.7s_ease-out_0.5s_forwards] border border-gray-700 hover:border-gray-500 transition-colors duration-300"
+            >
+              View My Projects
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -2,3 +2,74 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-dark: #161617;
+  --color-white: #fafafc;
+}
+
+.loading-container {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.loading-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 100%;
+  background: var(--color-dark);
+  will-change: top;
+}
+
+.rounded-div-wrap {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  will-change: height;
+}
+
+.rounded-div-wrap.top {
+  top: 0;
+  transform: translateY(-100%) scaleY(-1);
+}
+
+.rounded-div-wrap.bottom {
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+.rounded-div-wrap .rounded-div {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 150%;
+  height: 745%;
+  border-radius: 50%;
+  transform: translate(-50%, -86.666%);
+  background: var(--color-dark);
+}
+
+.loading-words {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  will-change: opacity;
+  z-index: 3;
+}
+
+.loading-words h2 {
+  margin: 0;
+  color: var(--color-white);
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  text-align: center;
+  white-space: nowrap;
+}
