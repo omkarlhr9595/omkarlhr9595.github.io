@@ -1,8 +1,100 @@
 import "./index.css";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import barba from "@barba/core";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LocomotiveScroll from "locomotive-scroll";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const bulgeHeight = () => (window.innerWidth > 540 ? "10vh" : "5vh");
+
+let scroll: LocomotiveScroll | null = null;
+let currentScrollY = 0;
+
+function initSmoothScroll(container: HTMLElement) {
+  const el = container.querySelector<HTMLElement>("[data-scroll-container]");
+  if (!el) return;
+
+  scroll = new LocomotiveScroll({ el, smooth: true });
+  currentScrollY = 0;
+
+  scroll.on("scroll", (event) => {
+    currentScrollY = event.scroll.y;
+    ScrollTrigger.update();
+  });
+
+  ScrollTrigger.scrollerProxy(el, {
+    scrollTop(value?: number) {
+      if (value !== undefined) {
+        scroll?.scrollTo(value, { duration: 0, disableLerp: true });
+        return;
+      }
+      return currentScrollY;
+    },
+    getBoundingClientRect() {
+      return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+    },
+    pinType: el.style.transform ? "transform" : "fixed",
+  });
+
+  ScrollTrigger.defaults({ scroller: el });
+  ScrollTrigger.addEventListener("refresh", () => scroll?.update());
+  ScrollTrigger.refresh();
+}
+
+function destroySmoothScroll() {
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  scroll?.destroy();
+  scroll = null;
+}
+
+// Mirrors the reference's initScrollLetters(): clones ".big-name .name-wrap",
+// places the clone right next to the original, then loops both across the
+// screen forever, reversing direction to match the scroll direction.
+function initScrollLetters(container: HTMLElement) {
+  const nameWrap = container.querySelector<HTMLElement>(".big-name .name-wrap");
+  const scrollContainer = container.querySelector<HTMLElement>("[data-scroll-container]");
+  if (!nameWrap || !scrollContainer) return;
+
+  const clone = nameWrap.cloneNode(true) as HTMLElement;
+  nameWrap.parentNode?.appendChild(clone);
+
+  const positionClone = () => {
+    gsap.set(clone, {
+      position: "absolute",
+      top: nameWrap.offsetTop,
+      left: nameWrap.offsetLeft + nameWrap.offsetWidth,
+    });
+  };
+  positionClone();
+
+  const rollTl = gsap.timeline({
+    repeat: -1,
+    onReverseComplete() {
+      this.totalTime(this.rawTime() + this.duration() * 10);
+    },
+  });
+  rollTl.to([nameWrap, clone], { xPercent: -100, duration: 18, ease: "none" }, 0);
+
+  window.addEventListener("resize", () => {
+    const time = rollTl.totalTime();
+    rollTl.totalTime(0);
+    positionClone();
+    rollTl.totalTime(time);
+  });
+
+  let direction = 1;
+  ScrollTrigger.create({
+    trigger: scrollContainer,
+    onUpdate(self) {
+      if (self.direction !== direction) {
+        direction *= -1;
+        gsap.to(rollTl, { timeScale: direction, overwrite: true });
+      }
+    },
+  });
+}
 
 const PAGE_NAMES: Record<string, string> = {
   home: "Home",
@@ -117,6 +209,8 @@ barba.init({
     {
       name: "curtain-wipe",
       once({ next }) {
+        initSmoothScroll(next.container);
+        initScrollLetters(next.container);
         if (next.namespace === "home") {
           playGreeting();
         } else {
@@ -125,11 +219,14 @@ barba.init({
         }
       },
       async leave({ current }) {
+        destroySmoothScroll();
         await coverScreen();
         current.container.style.display = "none";
       },
       beforeEnter({ next }) {
         setLoadingWord(next.namespace);
+        initSmoothScroll(next.container);
+        initScrollLetters(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";

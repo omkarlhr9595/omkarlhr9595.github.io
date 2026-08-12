@@ -10,6 +10,15 @@ export default {
         },
       },
       fontFamily: {
+        sans: [
+          "Plus Jakarta Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
         body: ["Pixelify Sans", "sans-serif"],
       },
       colors: {
