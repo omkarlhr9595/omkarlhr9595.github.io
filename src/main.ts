@@ -69,6 +69,11 @@ function initScrollLetters(container: HTMLElement) {
   };
   positionClone();
 
+  // The name is set in a webfont that loads async — re-measure once it's
+  // ready, since the fallback-font width used above is usually narrower and
+  // leaves the clone overlapping the original instead of sitting flush after it.
+  document.fonts.ready.then(positionClone);
+
   const rollTl = gsap.timeline({
     repeat: -1,
     onReverseComplete() {
