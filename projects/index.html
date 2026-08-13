@@ -8,30 +8,30 @@
   <body class="bg-white">
     <div class="min-h-screen w-full relative bg-white">
       <div data-barba="wrapper" class="w-full min-h-screen relative">
-        <div class="loading-container">
-          <div class="loading-screen">
-            <div class="rounded-div-wrap top">
-              <div class="rounded-div"></div>
+        <div class="loading-container fixed inset-0 z-[999] overflow-hidden pointer-events-none">
+          <div class="loading-screen relative w-full h-full top-full bg-black [will-change:top]">
+            <div class="rounded-div-wrap top absolute left-0 top-0 w-full h-0 overflow-hidden [will-change:height] -translate-y-full -scale-y-100">
+              <div class="rounded-div absolute top-0 left-1/2 w-[150%] h-[745%] rounded-full -translate-x-1/2 translate-y-[-86.666%] bg-black"></div>
             </div>
-            <div class="rounded-div-wrap bottom">
-              <div class="rounded-div"></div>
+            <div class="rounded-div-wrap bottom absolute left-0 bottom-0 w-full h-0 overflow-hidden [will-change:height] translate-y-full">
+              <div class="rounded-div absolute top-0 left-1/2 w-[150%] h-[745%] rounded-full -translate-x-1/2 translate-y-[-86.666%] bg-black"></div>
             </div>
-            <div class="loading-words">
-              <h2 class="greeting greeting-first">Hello</h2>
-              <h2 class="greeting">Bonjour</h2>
-              <h2 class="greeting">Hola</h2>
-              <h2 class="greeting">Ciao</h2>
-              <h2 class="greeting">Olá</h2>
-              <h2 class="greeting">こんにちは</h2>
+            <div class="loading-words absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 opacity-0 [will-change:opacity] z-[3]">
+              <h2 class="greeting greeting-first absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden opacity-100">Hello</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">Bonjour</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">Hola</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">Ciao</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">Olá</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">こんにちは</h2>
               <!-- <h2 class="greeting">Hallå</h2> -->
               <!-- <h2 class="greeting">Guten tag</h2> -->
               <!-- <h2 class="greeting">வணக்கம்</h2>
               <h2 class="greeting">నమస్కారం</h2> -->
-              <h2 class="greeting">നമസ്കാരം</h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">നമസ്കാരം</h2>
               <!-- <h2 class="greeting">নমস্কাৰ</h2> -->
-              <h2 class="greeting">ನಮಸ್ಕಾರ</h2>
-              <h2 class="greeting-last">नमस्कार</h2>
-              <h2 class="page-word"></h2>
+              <h2 class="greeting absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">ನಮಸ್ಕಾರ</h2>
+              <h2 class="greeting-last absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap hidden">नमस्कार</h2>
+              <h2 class="page-word absolute top-0 left-0 w-full m-0 text-white font-greeting font-medium text-[clamp(1.75rem,4vw,3rem)] text-center whitespace-nowrap block"></h2>
             </div>
           </div>
         </div>
