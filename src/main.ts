@@ -12,6 +12,22 @@ const bulgeHeight = () => (window.innerWidth > 540 ? "10vh" : "5vh");
 let scroll: LocomotiveScroll | null = null;
 let currentScrollY = 0;
 
+// Mirrors the reference's "Code by Dennis" → "Snellenberg" credit swap: the
+// slide distance has to equal the rendered width of "Setup by " exactly, or
+// "Omkar" lands short/long of where "Setup by" used to start.
+function initCreditSwap(container: HTMLElement) {
+  const link = container.querySelector<HTMLElement>(".credit-swap");
+  const setupBy = link?.querySelector<HTMLElement>(".credit-setup-by");
+  if (!link || !setupBy) return;
+
+  const measure = () => {
+    link.style.setProperty("--credit-slide", `-${setupBy.offsetWidth}px`);
+  };
+  measure();
+  document.fonts.ready.then(measure);
+  window.addEventListener("resize", measure);
+}
+
 function initSmoothScroll(container: HTMLElement) {
   const el = container.querySelector<HTMLElement>("[data-scroll-container]");
   if (!el) return;
@@ -216,6 +232,7 @@ barba.init({
       once({ next }) {
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
+        initCreditSwap(next.container);
         if (next.namespace === "home") {
           playGreeting();
         } else {
@@ -232,6 +249,7 @@ barba.init({
         setLoadingWord(next.namespace);
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
+        initCreditSwap(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";
