@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>omkarlohar.me</title>
-    <script type="module" crossorigin src="/assets/main-DTdGfZ7u.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main--2_akXUG.css">
+    <script type="module" crossorigin src="/assets/main-4zCChoru.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-EQ5KNUzH.css">
   </head>
   <body class="bg-white">
     <div class="w-full relative bg-white">
@@ -96,11 +96,11 @@
               data-scroll-section
             >
               <div
-                class="absolute top-0 left-0 z-20 flex w-full items-center justify-between p-[clamp(0.75em,2vw,1.25em)]"
+                class="absolute top-0 left-0 z-20 flex w-full items-center justify-between p-[clamp(0.75em,2.3vw,1.5em)]"
               >
                 <a
                   href="https://omkarlohar.me"
-                  class="credit-swap group flex items-center text-white text-sm sm:text-base font-medium"
+                  class="credit-swap group flex items-center h-[2.75em] text-white text-[clamp(1rem,1.2vw,1.1875rem)] font-medium"
                 >
                   <span class="inline-block pr-[0.21em]">
                     <span
@@ -130,10 +130,10 @@
                 data-scroll-position="top"
               >
                 <picture>
-                  <source media="(max-width: 720px)" srcset="/assets/setup_2.jpg" />
+                  <source media="(max-width: 720px)" srcset="/assets/setup_2.png" />
                   <img
                     class="w-auto max-[720px]:w-full h-full object-cover absolute left-1/2 -translate-x-1/2"
-                    src="/assets/setup_1.jpg"
+                    src="/assets/setup_1.png"
                     alt="My setup"
                   />
                 </picture>
@@ -160,19 +160,34 @@
             </header>
             <section
               data-scroll-section
-              class="bg-white w-full min-h-screen flex flex-col items-center justify-center gap-8 px-4 text-center"
+              class="bg-white w-full min-h-screen flex items-center justify-center p-6 sm:p-10 lg:p-16"
             >
-              <h2
-                class="text-black text-3xl sm:text-5xl font-semibold max-w-2xl"
+              <!-- The aspect ratio lives on the wrapper, not on the loaded image:
+                   Locomotive measures section offsets once at init, so a box that
+                   only gets its height once the SVG lands leaves those offsets
+                   stale and sections get flagged out-of-view. -->
+              <div
+                class="relative w-full max-w-6xl aspect-[572/272] max-[720px]:aspect-[572/472]"
               >
-                Want to see what I've been building?
-              </h2>
-              <a
-                href="/projects/"
-                class="px-6 py-3 rounded-full text-lg text-black border border-gray-700 hover:border-gray-500 transition-colors duration-300"
-              >
-                View My Projects
-              </a>
+                <picture>
+                  <source media="(max-width: 720px)" srcset="/assets/desk-mat.svg" />
+                  <img
+                    src="/assets/desk-mat-banner.svg"
+                    alt=""
+                    aria-hidden="true"
+                    class="absolute inset-0 block h-full w-full select-none pointer-events-none drop-shadow-[0_25px_50px_rgba(0,0,0,0.28)]"
+                  />
+                </picture>
+                <div class="absolute inset-0 overflow-hidden" data-doodle-layer>
+                  <img
+                    src="/assets/coke.png"
+                    alt=""
+                    draggable="false"
+                    class="mat-doodle absolute w-12 sm:w-16 md:w-20 select-none touch-none cursor-grab active:cursor-grabbing"
+                    style="top: 38%; left: 40%"
+                  />
+                </div>
+              </div>
             </section>
           </div>
         </div>
