@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>omkarlohar.me</title>
-    <script type="module" crossorigin src="/assets/main-QpOJC6ej.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-EQ5KNUzH.css">
+    <script type="module" crossorigin src="/assets/main-BOK6CG9K.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-BzYcRtBx.css">
   </head>
   <body class="bg-white">
     <div class="w-full relative bg-white">
@@ -179,13 +179,33 @@
                   />
                 </picture>
                 <div class="absolute inset-0 overflow-hidden" data-doodle-layer>
-                  <img
-                    src="/assets/coke.png"
-                    alt=""
-                    draggable="false"
-                    class="mat-doodle absolute w-12 sm:w-16 md:w-20 select-none touch-none cursor-grab active:cursor-grabbing"
+                  <div
+                    class="mat-doodle absolute w-12 sm:w-16 md:w-20 select-none"
                     style="top: 38%; left: 40%"
-                  />
+                  >
+                    <img
+                      src="/assets/coke.png"
+                      alt=""
+                      draggable="false"
+                      class="mat-doodle-drag block w-full h-full touch-none cursor-grab active:cursor-grabbing"
+                    />
+                    <div class="group/rotate absolute bottom-0 right-0 h-1/4 w-1/4">
+                      <button
+                        type="button"
+                        aria-label="Rotate"
+                        class="mat-doodle-rotate absolute -bottom-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-black/10 bg-white/90 text-[#184536] opacity-0 shadow transition-opacity duration-150 touch-none cursor-grab group-hover/rotate:opacity-100 focus-visible:opacity-100 active:cursor-grabbing active:opacity-100"
+                      >
+                        <svg viewBox="0 0 16 16" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <path
+                            d="M12.5 8a4.5 4.5 0 1 1-1.5-3.354"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path d="M11 2v3h-3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
