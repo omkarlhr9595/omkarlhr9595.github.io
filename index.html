@@ -125,15 +125,14 @@
         <div data-barba="container" data-barba-namespace="home" class="w-full">
           <div data-nav-overlay></div>
           <div data-scroll-container>
-            <!-- Mobile heights use `svh`, not `vh` and not `--vh`. `100vh` on
-                 iOS means the *large* viewport (URL bar hidden), so the header
-                 overhangs the visible area. `--vh` fixes that but is re-measured
-                 on resize, and iOS fires resize every time the URL bar collapses
-                 mid-scroll — so the header would change height while you scroll.
-                 `svh` is the small viewport: the reference's intent, but a fixed
-                 value that never moves during a scroll. -->
+            <!-- Mobile heights go through `--vh` (set from nav.ts), not raw
+                 `vh`: mobile browsers report 100vh as the *largest* viewport,
+                 with the URL bar hidden, and collapse the chrome as you scroll.
+                 A header sized in raw vh therefore changes height mid-scroll,
+                 which leaves every section offset and parallax bound Locomotive
+                 measured at init stale. -->
             <header
-              class="relative flex min-h-[115vh] items-center overflow-hidden bg-black max-[720px]:max-h-[110svh] max-[720px]:min-h-[110svh]"
+              class="relative flex min-h-[115vh] items-center overflow-hidden bg-black max-[720px]:max-h-[calc(var(--vh)*110)] max-[720px]:min-h-[calc(var(--vh)*110)]"
               data-scroll-section
             >
               <div class="absolute left-0 top-0 z-20 w-full" data-nav-bar></div>
@@ -175,7 +174,7 @@
                 </picture>
               </div>
               <div
-                class="big-name absolute bottom-[15vh] left-0 w-full pb-[clamp(1.875em,5vw,3.125em)] max-[720px]:bottom-[33svh]"
+                class="big-name absolute bottom-[15vh] left-0 w-full pb-[clamp(1.875em,5vw,3.125em)] max-[720px]:bottom-[calc(var(--vh)*33)]"
               >
                 <div
                   class="relative flex w-full"
