@@ -216,6 +216,47 @@ function initMatDoodles(container: HTMLElement) {
 
     doodle.addEventListener("pointerup", endPointer);
     doodle.addEventListener("pointercancel", endPointer);
+
+    // Corner handle: mouse/trackpad rotate, since neither has a pinch gesture.
+    // Shares the same `rotation` state as the two-finger path above, so
+    // switching between touch-twist and handle-drag stays continuous.
+    const handle = doodle.querySelector<HTMLElement>(".mat-doodle-rotate");
+    if (!handle) return;
+
+    let handleStartAngle = 0;
+    let handleBaseRotation = 0;
+
+    const angleFromCenter = (point: { x: number; y: number }) => {
+      const layerRect = layer.getBoundingClientRect();
+      const center = {
+        x: layerRect.left + doodle.offsetLeft + doodle.offsetWidth / 2,
+        y: layerRect.top + doodle.offsetTop + doodle.offsetHeight / 2,
+      };
+      return angleBetween(center, point);
+    };
+
+    handle.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      handle.setPointerCapture(event.pointerId);
+      handleStartAngle = angleFromCenter({ x: event.clientX, y: event.clientY });
+      handleBaseRotation = rotation;
+    });
+
+    handle.addEventListener("pointermove", (event) => {
+      if (!handle.hasPointerCapture(event.pointerId)) return;
+      const angle = angleFromCenter({ x: event.clientX, y: event.clientY });
+      rotation = handleBaseRotation + (angle - handleStartAngle);
+      doodle.style.transform = `rotate(${rotation}deg)`;
+    });
+
+    const endHandleRotate = (event: PointerEvent) => {
+      if (handle.hasPointerCapture(event.pointerId)) {
+        handle.releasePointerCapture(event.pointerId);
+      }
+    };
+    handle.addEventListener("pointerup", endHandleRotate);
+    handle.addEventListener("pointercancel", endHandleRotate);
   });
 }
 
