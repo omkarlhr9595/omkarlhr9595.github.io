@@ -49,20 +49,20 @@
   <body class="bg-white">
     <div class="relative w-full bg-white">
       <div data-barba="wrapper" class="relative w-full">
-        <div class="loading-container pointer-events-none fixed inset-0 z-[999] overflow-hidden">
+        <div class="pointer-events-none fixed inset-0 z-[999] overflow-hidden">
           <div class="loading-screen relative top-full h-full w-full bg-black [will-change:top]">
             <div
               class="rounded-div-wrap top absolute left-0 top-0 h-0 w-full -translate-y-full -scale-y-100 overflow-hidden [will-change:height]"
             >
               <div
-                class="rounded-div absolute left-1/2 top-0 h-[745%] w-[150%] -translate-x-1/2 translate-y-[-86.666%] rounded-full bg-black"
+                class="absolute left-1/2 top-0 h-[745%] w-[150%] -translate-x-1/2 translate-y-[-86.666%] rounded-full bg-black"
               ></div>
             </div>
             <div
               class="rounded-div-wrap bottom absolute bottom-0 left-0 h-0 w-full translate-y-full overflow-hidden [will-change:height]"
             >
               <div
-                class="rounded-div absolute left-1/2 top-0 h-[745%] w-[150%] -translate-x-1/2 translate-y-[-86.666%] rounded-full bg-black"
+                class="absolute left-1/2 top-0 h-[745%] w-[150%] -translate-x-1/2 translate-y-[-86.666%] rounded-full bg-black"
               ></div>
             </div>
             <div
@@ -128,12 +128,12 @@
           <div data-nav-overlay></div>
           <div data-scroll-container>
             <header
-              class="home-header relative flex min-h-[115vh] items-center overflow-hidden bg-black max-[720px]:max-h-[110vh] max-[720px]:min-h-[110vh]"
+              class="relative flex min-h-[115vh] items-center overflow-hidden bg-black max-[720px]:max-h-[110vh] max-[720px]:min-h-[110vh]"
               data-scroll-section
             >
               <div class="absolute left-0 top-0 z-20 w-full" data-nav-bar></div>
               <div
-                class="personal-image once-in absolute left-0 top-[-10%] h-[110%] w-full bg-black [will-change:transform] max-[720px]:top-[-5%] max-[720px]:h-[105%]"
+                class="once-in absolute left-0 top-[-10%] h-[110%] w-full bg-black [will-change:transform] max-[720px]:top-[-5%] max-[720px]:h-[105%]"
                 data-scroll
                 data-scroll-speed="-3"
                 data-scroll-position="top"
@@ -165,7 +165,7 @@
                 class="big-name absolute bottom-[15vh] left-0 w-full pb-[clamp(1.875em,5vw,3.125em)] max-[720px]:bottom-[33vh]"
               >
                 <div
-                  class="name-h1 relative flex w-full"
+                  class="relative flex w-full"
                   data-scroll
                   data-scroll-direction="horizontal"
                   data-scroll-speed="4"
@@ -173,9 +173,9 @@
                 >
                   <div class="name-wrap relative flex items-center">
                     <h1
-                      class="no-select once-in pointer-events-none relative m-0 flex items-center whitespace-nowrap p-0 font-heading text-[max(9em,15vw)] font-semibold leading-none text-white [text-shadow:4px_4px_20px_rgba(0,0,0,0.5)] [will-change:transform]"
+                      class="once-in pointer-events-none relative m-0 flex select-none items-center whitespace-nowrap p-0 font-heading text-[max(9em,15vw)] font-semibold leading-none text-white [text-shadow:4px_4px_20px_rgba(0,0,0,0.5)] [will-change:transform]"
                     >
-                      This is my setup<span class="spacer px-[3vw]">—</span>
+                      This is my setup<span class="px-[3vw]">—</span>
                     </h1>
                   </div>
                 </div>
@@ -206,7 +206,7 @@
                       draggable="false"
                       loading="lazy"
                       decoding="async"
-                      class="draggable-image block h-full w-full cursor-grab touch-none active:cursor-grabbing"
+                      class="block h-full w-full cursor-grab touch-none active:cursor-grabbing"
                     />
                     <div class="group/rotate absolute bottom-0 right-0 h-1/4 w-1/4">
                       <button
