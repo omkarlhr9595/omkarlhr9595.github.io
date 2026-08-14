@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="572" height="272" viewBox="-36 -36 572 272" role="img" aria-label="Cutting mat banner with ruler studs and R10 radius arc">
+  <!--
+    Geometry (1 grid unit = 20 user units, one major block = 100 = 5x5 cells)
+      grid box   x 0..500 (25 cells = 5 blocks)   y 0..200 (10 cells = 2 blocks)
+                 both edges land on major lines, so every block is a full 5x5
+      numbering  origin at the box's top-left corner
+      arc centre 20,200 -> one cell in from the bottom-left corner,
+                 which puts R10 on the bottom axis at 11 and R20 at 21.
+                 The mat is short, so R20 runs off the top edge.
+  -->
+  <defs>
+    <!-- inner grid: 1 unit -->
+    <pattern id="grid-minor" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0 0H20M0 0V20" fill="none" stroke="#184536" stroke-width="1"/>
+    </pattern>
+    <!-- outer grid: 5 units -->
+    <pattern id="grid-major" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M0 0H100M0 0V100" fill="none" stroke="#a9bf71" stroke-width="1"/>
+    </pattern>
+
+    <!-- Ruler studs. Each line sits at the centre of its tile and the pattern is
+         offset by half a tile, so ticks land on multiples of the spacing and no
+         stroke is clipped by the tile edge. The rails overhang by 1 at each end
+         so the first and last tick both render at full width. -->
+    <pattern id="stud-v-minor" x="-10" width="20" height="6" patternUnits="userSpaceOnUse">
+      <path d="M10 0V6" stroke="#a9bf71" stroke-width="1.2"/>
+    </pattern>
+    <pattern id="stud-v-major" x="-50" width="100" height="12" patternUnits="userSpaceOnUse">
+      <path d="M50 0V12" stroke="#a9bf71" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="stud-h-minor" y="-10" width="6" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0 10H6" stroke="#a9bf71" stroke-width="1.2"/>
+    </pattern>
+    <pattern id="stud-h-major" y="-50" width="12" height="100" patternUnits="userSpaceOnUse">
+      <path d="M0 50H12" stroke="#a9bf71" stroke-width="1.4"/>
+    </pattern>
+
+    <clipPath id="box">
+      <rect x="0" y="0" width="500" height="200"/>
+    </clipPath>
+  </defs>
+
+  <!-- mat body -->
+  <rect x="-36" y="-36" width="572" height="272" rx="48" fill="#03332a"/>
+
+  <!-- grid -->
+  <g clip-path="url(#box)">
+    <rect x="0" y="0" width="500" height="200" fill="url(#grid-minor)"/>
+    <rect x="0" y="0" width="500" height="200" fill="url(#grid-major)"/>
+  </g>
+
+  <!-- ruler studs, outside the grid box on all four edges -->
+  <g>
+    <rect x="-1" y="-6" width="502" height="6" fill="url(#stud-v-minor)"/>
+    <rect x="-1" y="-12" width="502" height="12" fill="url(#stud-v-major)"/>
+    <rect x="-1" y="200" width="502" height="6" fill="url(#stud-v-minor)"/>
+    <rect x="-1" y="200" width="502" height="12" fill="url(#stud-v-major)"/>
+    <rect x="-6" y="-1" width="6" height="202" fill="url(#stud-h-minor)"/>
+    <rect x="-12" y="-1" width="12" height="202" fill="url(#stud-h-major)"/>
+    <rect x="500" y="-1" width="6" height="202" fill="url(#stud-h-minor)"/>
+    <rect x="500" y="-1" width="12" height="202" fill="url(#stud-h-major)"/>
+  </g>
+
+  <!-- grid box border -->
+  <rect x="0" y="0" width="500" height="200" fill="none" stroke="#a9bf71" stroke-width="2"/>
+
+  <!-- radius arcs. Drawn as half circles and clipped, so they always run edge to edge. -->
+  <g clip-path="url(#box)" fill="none" stroke="#a9bf71" stroke-width="1.6">
+    <path d="M220 200 A200 200 0 0 0 -180 200"/>
+    <path d="M420 200 A400 400 0 0 0 -380 200"/>
+  </g>
+
+  <!-- labels -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#a9bf71" dominant-baseline="central">
+    <g text-anchor="middle">
+      <text x="100" y="-20">5</text>
+      <text x="200" y="-20">10</text>
+      <text x="300" y="-20">15</text>
+      <text x="400" y="-20">20</text>
+    </g>
+    <g text-anchor="middle">
+      <text x="100" y="220">5</text>
+      <text x="200" y="220">10</text>
+      <text x="300" y="220">15</text>
+      <text x="400" y="220">20</text>
+    </g>
+    <text x="-14" y="100" text-anchor="end">5</text>
+    <text x="514" y="100" text-anchor="start">5</text>
+
+    <!-- radius callout sits on its arc; R20 falls off the top edge here, as in the reference -->
+    <text x="166" y="64" text-anchor="middle" stroke="#03332a" stroke-width="4" paint-order="stroke">R10</text>
+  </g>
+</svg>

@@ -57,6 +57,17 @@ function initSmoothScroll(container: HTMLElement) {
   ScrollTrigger.defaults({ scroller: el });
   ScrollTrigger.addEventListener("refresh", () => scroll?.update());
   ScrollTrigger.refresh();
+
+  // Locomotive measures every section's offset/limit once, then hides any
+  // section it reads as out of view. Anything that changes layout height after
+  // init — a late image, a webfont swap — leaves those offsets stale and can
+  // blank out a section that is actually on screen. Re-measure when it happens.
+  const remeasure = () => scroll?.update();
+  document.fonts.ready.then(remeasure);
+  window.addEventListener("load", remeasure);
+  el.querySelectorAll("img").forEach((img) => {
+    if (!img.complete) img.addEventListener("load", remeasure, { once: true });
+  });
 }
 
 function destroySmoothScroll() {
@@ -114,6 +125,51 @@ function initScrollLetters(container: HTMLElement) {
         gsap.to(rollTl, { timeScale: direction, overwrite: true });
       }
     },
+  });
+}
+
+// Lets each ".mat-doodle" sticker be dragged anywhere within its layer.
+// Pointer events (not mouse/touch) so one listener covers both input types,
+// and stopPropagation keeps drags from being swallowed by locomotive-scroll's
+// own touch handling on the smooth-scroll container.
+function initMatDoodles(container: HTMLElement) {
+  const doodles = container.querySelectorAll<HTMLElement>(".mat-doodle");
+
+  doodles.forEach((doodle) => {
+    doodle.addEventListener("pointerdown", (event) => {
+      const layer = doodle.parentElement;
+      if (!layer) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      doodle.setPointerCapture(event.pointerId);
+
+      const layerRect = layer.getBoundingClientRect();
+      const doodleRect = doodle.getBoundingClientRect();
+      const offsetX = event.clientX - doodleRect.left;
+      const offsetY = event.clientY - doodleRect.top;
+
+      const onMove = (moveEvent: PointerEvent) => {
+        const maxLeft = layerRect.width - doodleRect.width;
+        const maxTop = layerRect.height - doodleRect.height;
+        const left = moveEvent.clientX - layerRect.left - offsetX;
+        const top = moveEvent.clientY - layerRect.top - offsetY;
+
+        doodle.style.left = `${Math.min(Math.max(left, 0), Math.max(maxLeft, 0))}px`;
+        doodle.style.top = `${Math.min(Math.max(top, 0), Math.max(maxTop, 0))}px`;
+      };
+
+      const onUp = (upEvent: PointerEvent) => {
+        doodle.releasePointerCapture(upEvent.pointerId);
+        doodle.removeEventListener("pointermove", onMove);
+        doodle.removeEventListener("pointerup", onUp);
+        doodle.removeEventListener("pointercancel", onUp);
+      };
+
+      doodle.addEventListener("pointermove", onMove);
+      doodle.addEventListener("pointerup", onUp);
+      doodle.addEventListener("pointercancel", onUp);
+    });
   });
 }
 
@@ -233,6 +289,7 @@ barba.init({
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
         initCreditSwap(next.container);
+        initMatDoodles(next.container);
         if (next.namespace === "home") {
           playGreeting();
         } else {
@@ -250,6 +307,7 @@ barba.init({
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
         initCreditSwap(next.container);
+        initMatDoodles(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";
