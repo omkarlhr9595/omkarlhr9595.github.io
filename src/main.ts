@@ -260,6 +260,40 @@ function initMatDoodles(container: HTMLElement) {
   });
 }
 
+// The ransom-note letter set at /assets/ransom_notes_Letters has 3 cutout
+// variants per letter, A through Z, laid out as consecutive file numbers:
+// A -> 1,2,3, B -> 4,5,6, ... Z -> 76,77,78.
+function ransomVariantsFor(letter: string): number[] {
+  const index = letter.toUpperCase().charCodeAt(0) - "A".charCodeAt(0);
+  return [index * 3 + 1, index * 3 + 2, index * 3 + 3];
+}
+
+// Picks a random cutout variant per letter, so "[data-letter]" images never
+// render the same combination twice in a row. Each also gets a small random
+// tilt for the cut-and-pasted ransom-note look.
+function shuffleRansomLetters(container: ParentNode) {
+  const letters = container.querySelectorAll<HTMLImageElement>(".ransom-letter[data-letter]");
+
+  letters.forEach((img) => {
+    const letter = img.dataset.letter;
+    if (!letter) return;
+
+    const variants = ransomVariantsFor(letter);
+    const variant = variants[Math.floor(Math.random() * variants.length)];
+    img.src = `/assets/ransom_notes_Letters/${variant}.png`;
+
+    const tilt = Math.random() * 16 - 8;
+    img.style.transform = `rotate(${tilt.toFixed(1)}deg)`;
+  });
+}
+
+function initRansomTitles(container: HTMLElement) {
+  shuffleRansomLetters(container);
+
+  const shuffleButton = container.querySelector<HTMLButtonElement>("[data-ransom-shuffle]");
+  shuffleButton?.addEventListener("click", () => shuffleRansomLetters(container));
+}
+
 const PAGE_NAMES: Record<string, string> = {
   home: "Home",
   projects: "Projects",
@@ -377,6 +411,7 @@ barba.init({
         initScrollLetters(next.container);
         initCreditSwap(next.container);
         initMatDoodles(next.container);
+        initRansomTitles(next.container);
         if (next.namespace === "home") {
           playGreeting();
         } else {
@@ -395,6 +430,7 @@ barba.init({
         initScrollLetters(next.container);
         initCreditSwap(next.container);
         initMatDoodles(next.container);
+        initRansomTitles(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";
