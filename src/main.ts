@@ -11,8 +11,17 @@ gsap.registerPlugin(ScrollTrigger);
 const bulgeHeight = () => (window.innerWidth > 540 ? "10vh" : "5vh");
 
 let scroll: LocomotiveScroll | null = null;
-let currentScrollY = 0;
 let introRunning = false;
+
+// The published typings stop at the public API, but ScrollTrigger's proxy has to
+// read the position locomotive is *currently* at, not the last value its
+// `scroll` event happened to emit — refresh() and update() are also driven from
+// resize and from GSAP's own ticker, and a cached copy is stale on those paths.
+// v4 keeps the authoritative offset on the core instance.
+type LocomotiveInternals = { scroll: { instance: { scroll: { x: number; y: number } } } };
+
+const scrollY = () =>
+  (scroll as unknown as LocomotiveInternals | null)?.scroll?.instance?.scroll?.y ?? 0;
 
 // Mirrors the reference's `.once-in` intro: everything marked with the class is
 // parked half a viewport down the page, then rises into place as the curtain
@@ -55,7 +64,12 @@ function onceInTween(container: HTMLElement, duration: number, stagger: number) 
       // phones), and it owns the scroll lock while open — don't hand scrolling
       // back underneath it.
       if (!container.classList.contains("nav-active")) scroll?.start();
-      scroll?.update();
+      // Refresh rather than a bare scroll.update(): the `refresh` listener wired
+      // up in initSmoothScroll calls update() for us, and going through
+      // ScrollTrigger keeps its measurements and locomotive's in step. Updating
+      // only locomotive would leave ScrollTrigger on the offsets it took while
+      // the `.once-in` targets were still parked half a viewport down.
+      ScrollTrigger.refresh();
     },
   });
 }
@@ -81,11 +95,9 @@ function initSmoothScroll(container: HTMLElement) {
   if (!el) return;
 
   scroll = new LocomotiveScroll({ el, smooth: true });
-  currentScrollY = 0;
 
   scroll.on("scroll", (event) => {
-    currentScrollY = event.scroll.y;
-    updateNavScrolled(container, currentScrollY);
+    updateNavScrolled(container, event.scroll.y);
     ScrollTrigger.update();
   });
 
@@ -95,12 +107,20 @@ function initSmoothScroll(container: HTMLElement) {
         scroll?.scrollTo(value, { duration: 0, disableLerp: true });
         return;
       }
-      return currentScrollY;
+      return scrollY();
     },
     getBoundingClientRect() {
       return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
     },
-    pinType: el.style.transform ? "transform" : "fixed",
+    // The probe the GSAP recipe uses reads the *container's* transform, but v4
+    // transforms each section and never the container — so it always came back
+    // empty and silently picked "fixed", the mobile branch, even on desktop.
+    // A section carries the transform, so ask one of those instead; in the
+    // native-scroll mode locomotive falls back to on touch devices nothing is
+    // transformed at all and this correctly lands on "fixed".
+    pinType: (el.querySelector<HTMLElement>("[data-scroll-section]") ?? el).style.transform
+      ? "transform"
+      : "fixed",
   });
 
   ScrollTrigger.defaults({ scroller: el });
@@ -112,7 +132,7 @@ function initSmoothScroll(container: HTMLElement) {
   // init — a late image, a webfont swap — leaves those offsets stale and can
   // blank out a section that is actually on screen. Re-measure when it happens.
   const remeasure = () => {
-    if (!introRunning) scroll?.update();
+    if (!introRunning) ScrollTrigger.refresh();
   };
   document.fonts.ready.then(remeasure);
   window.addEventListener("load", remeasure);
@@ -123,6 +143,11 @@ function initSmoothScroll(container: HTMLElement) {
 
 function destroySmoothScroll() {
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  // Hand the default scroller back to the window. The pages without a
+  // `[data-scroll-container]` never call initSmoothScroll, so without this reset
+  // any trigger they create would inherit a scroller that has been torn down and
+  // removed from the document.
+  ScrollTrigger.defaults({ scroller: window });
   scroll?.destroy();
   scroll = null;
 }

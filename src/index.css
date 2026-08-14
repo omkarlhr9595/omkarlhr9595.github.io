@@ -3,6 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* 1% of the *visible* viewport height, re-measured from JS (nav.ts) on load
+     and resize. Declared here so `calc(var(--vh) * n)` is already valid on the
+     first paint, before that measurement lands. */
+  --vh: 1vh;
+}
+
 html {
   scrollbar-width: none;
 }
@@ -10,4 +17,32 @@ html {
 html::-webkit-scrollbar,
 .c-scrollbar {
   display: none;
+}
+
+/* Mirrors the reference's `main` / `.main-wrap` pinning.
+ *
+ * Locomotive v4 translates each `[data-scroll-section]` individually and leaves
+ * `[data-scroll-container]` in normal document flow, so the document keeps its
+ * full scroll height. The `overflow: hidden` locomotive's own stylesheet puts on
+ * html/body hides the native scrollbar but does *not* block programmatic
+ * scrolling: tabbing to a focusable element below the fold (the sticker rotate
+ * handles, the shuffle button) makes the browser scroll the body while
+ * locomotive's own offset stays where it was, and the two desync with no way to
+ * scroll back. Taking the wrapper and the container out of flow leaves the
+ * browser nothing to scroll.
+ *
+ * Scoped to `.has-scroll-smooth` — the class locomotive only adds in smooth
+ * mode — so the native-scroll fallback it uses on touch devices keeps a
+ * normally-flowing, scrollable page. */
+.has-scroll-smooth [data-scroll-root],
+.has-scroll-smooth [data-scroll-container] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.has-scroll-smooth [data-scroll-root] {
+  height: 100%;
+  overflow: hidden;
 }
