@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="572" height="472" viewBox="-36 -36 572 472" role="img" aria-label="Cutting mat with ruler studs, R10 and R20 radius arcs and angle guides">
+<svg xmlns="http://www.w3.org/2000/svg" width="772" height="472" viewBox="-36 -36 772 472" role="img" aria-label="Cutting mat with ruler studs, R10 and R20 radius arcs and angle guides">
   <!--
     Geometry (1 grid unit = 20 user units, one major block = 100 = 5x5 cells)
-      grid box   x 0..500 (25 cells = 5 blocks)   y 0..400 (20 cells = 4 blocks)
+      grid box   x 0..700 (35 cells = 7 blocks)   y 0..400 (20 cells = 4 blocks)
                  both edges land on major lines, so every block is a full 5x5
       numbering  origin at the box's top-left corner
       arc centre 20,400 -> one cell in from the bottom-left corner,
@@ -35,38 +35,39 @@
     </pattern>
 
     <clipPath id="box">
-      <rect x="0" y="0" width="500" height="400"/>
+      <rect x="0" y="0" width="700" height="400"/>
     </clipPath>
   </defs>
 
   <!-- mat body -->
-  <rect x="-36" y="-36" width="572" height="472" rx="24" fill="#03332a"/>
+  <rect x="-36" y="-36" width="772" height="472" rx="24" fill="#03332a"/>
 
   <!-- grid -->
   <g clip-path="url(#box)">
-    <rect x="0" y="0" width="500" height="400" fill="url(#grid-minor)"/>
-    <rect x="0" y="0" width="500" height="400" fill="url(#grid-major)"/>
+    <rect x="0" y="0" width="700" height="400" fill="url(#grid-minor)"/>
+    <rect x="0" y="0" width="700" height="400" fill="url(#grid-major)"/>
   </g>
 
   <!-- ruler studs, outside the grid box on all four edges -->
   <g>
-    <rect x="-1" y="-6" width="502" height="6" fill="url(#stud-v-minor)"/>
-    <rect x="-1" y="-12" width="502" height="12" fill="url(#stud-v-major)"/>
-    <rect x="-1" y="400" width="502" height="6" fill="url(#stud-v-minor)"/>
-    <rect x="-1" y="400" width="502" height="12" fill="url(#stud-v-major)"/>
+    <rect x="-1" y="-6" width="702" height="6" fill="url(#stud-v-minor)"/>
+    <rect x="-1" y="-12" width="702" height="12" fill="url(#stud-v-major)"/>
+    <rect x="-1" y="400" width="702" height="6" fill="url(#stud-v-minor)"/>
+    <rect x="-1" y="400" width="702" height="12" fill="url(#stud-v-major)"/>
     <rect x="-6" y="-1" width="6" height="402" fill="url(#stud-h-minor)"/>
     <rect x="-12" y="-1" width="12" height="402" fill="url(#stud-h-major)"/>
-    <rect x="500" y="-1" width="6" height="402" fill="url(#stud-h-minor)"/>
-    <rect x="500" y="-1" width="12" height="402" fill="url(#stud-h-major)"/>
+    <rect x="700" y="-1" width="6" height="402" fill="url(#stud-h-minor)"/>
+    <rect x="700" y="-1" width="12" height="402" fill="url(#stud-h-major)"/>
   </g>
 
   <!-- grid box border -->
-  <rect x="0" y="0" width="500" height="400" fill="none" stroke="#a9bf71" stroke-width="2"/>
+  <rect x="0" y="0" width="700" height="400" fill="none" stroke="#a9bf71" stroke-width="2"/>
 
   <!-- radius arcs. Drawn as half circles and clipped, so they always run edge to edge. -->
   <g clip-path="url(#box)" fill="none" stroke="#a9bf71" stroke-width="1.6">
     <path d="M220 400 A200 200 0 0 0 -180 400"/>
     <path d="M420 400 A400 400 0 0 0 -380 400"/>
+    <path d="M620 400 A600 600 0 0 0 -580 400"/>
   </g>
 
   <!-- labels -->
@@ -76,12 +77,16 @@
       <text x="200" y="-20">10</text>
       <text x="300" y="-20">15</text>
       <text x="400" y="-20">20</text>
+      <text x="500" y="-20">25</text>
+      <text x="600" y="-20">30</text>
     </g>
     <g text-anchor="middle">
       <text x="100" y="420">5</text>
       <text x="200" y="420">10</text>
       <text x="300" y="420">15</text>
       <text x="400" y="420">20</text>
+      <text x="500" y="420">25</text>
+      <text x="600" y="420">30</text>
     </g>
     <g text-anchor="end">
       <text x="-14" y="100">5</text>
@@ -90,16 +95,17 @@
       <text x="-14" y="400">20</text>
     </g>
     <g text-anchor="start">
-      <text x="514" y="100">5</text>
-      <text x="514" y="200">10</text>
-      <text x="514" y="300">15</text>
-      <text x="514" y="400">20</text>
+      <text x="714" y="100">5</text>
+      <text x="714" y="200">10</text>
+      <text x="714" y="300">15</text>
+      <text x="714" y="400">20</text>
     </g>
 
     <!-- radius callouts sit on their arc; angle callouts on rays at r=21.5 units -->
     <g text-anchor="middle" stroke="#03332a" stroke-width="4" paint-order="stroke">
       <text x="166" y="264">R10</text>
       <text x="313" y="127">R20</text>
+      <text x="550" y="118">R30</text>
       <text x="435" y="289">15°</text>
       <text x="392" y="185">30°</text>
       <text x="324" y="96">45°</text>
