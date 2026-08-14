@@ -310,6 +310,11 @@ function socialsMarkup() {
 // circle inside an overflow-hidden 6vw column: as the panel arrives the column
 // collapses to 0, so its leading edge reads as a rubbery bulge being pulled
 // flat rather than a straight edge sliding in.
+//
+// The ellipse's `left: 50%` plus `translateX(-6.5%)` of its own 775% width is
+// what lands its extreme left tip on the column's left edge — that tip is the
+// only part curved enough to read as a bulge, so dropping either half of that
+// pair slides the window onto a nearly straight stretch of the curve instead.
 function sidebarMarkup(namespace: string) {
   const links = NAV_ROUTES.map((route, index) => sidebarLink(route, namespace, index)).join("");
 
@@ -325,7 +330,7 @@ function sidebarMarkup(namespace: string) {
           class="rounded-div-wrap relative top-0 h-full w-[6vw] overflow-hidden transition-all duration-[850ms] [transition-timing-function:cubic-bezier(.7,0,.2,1)] [will-change:width] [.nav-active_&]:w-0 max-[540px]:w-[20vw]"
         >
           <div
-            class="rounded-div absolute top-1/2 block h-[150%] w-[775%] rounded-[50%] bg-[#1C1D20] [transform:translate(-6.5%,-50%)]"
+            class="rounded-div absolute left-1/2 top-1/2 z-[1] block h-[150%] w-[775%] rounded-[50%] bg-[#1C1D20] [transform:translate(-6.5%,-50%)]"
           ></div>
         </div>
       </div>

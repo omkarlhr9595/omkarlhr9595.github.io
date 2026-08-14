@@ -12,6 +12,53 @@ const bulgeHeight = () => (window.innerWidth > 540 ? "10vh" : "5vh");
 
 let scroll: LocomotiveScroll | null = null;
 let currentScrollY = 0;
+let introRunning = false;
+
+// Mirrors the reference's `.once-in` intro: everything marked with the class is
+// parked half a viewport down the page, then rises into place as the curtain
+// lifts — staggered in DOM order, so on the home page the photo leads and the
+// name follows. The reference uses a shorter drop on phones, and a slightly
+// longer one for page-to-page transitions than for a cold load.
+const onceInOffset = (phase: "load" | "transition") =>
+  window.innerWidth > 540 ? "50vh" : phase === "load" ? "10vh" : "20vh";
+
+function onceInTargets(container: HTMLElement) {
+  return container.querySelectorAll<HTMLElement>(".once-in");
+}
+
+// Arming has to happen *after* Locomotive is constructed: it measures every
+// section and parallax target once from their bounding rects, and a target
+// that is 50vh off its resting place at that moment gets the wrong offsets.
+// For the same reason scroll is frozen until the rise lands, and only then is
+// a re-measure allowed through.
+function armOnceIn(container: HTMLElement, phase: "load" | "transition") {
+  const targets = onceInTargets(container);
+  if (!targets.length) return;
+  introRunning = true;
+  scroll?.stop();
+  gsap.set(targets, { y: onceInOffset(phase) });
+}
+
+function onceInTween(container: HTMLElement, duration: number, stagger: number) {
+  const targets = onceInTargets(container);
+  if (!targets.length) return null;
+
+  return gsap.to(targets, {
+    y: "0vh",
+    duration,
+    stagger,
+    ease: "expo.out",
+    clearProps: true,
+    onComplete() {
+      introRunning = false;
+      // The menu can be opened mid-intro (its Menu trigger is always live on
+      // phones), and it owns the scroll lock while open — don't hand scrolling
+      // back underneath it.
+      if (!container.classList.contains("nav-active")) scroll?.start();
+      scroll?.update();
+    },
+  });
+}
 
 // Mirrors the reference's "Code by Dennis" → "Snellenberg" credit swap: the
 // slide distance has to equal the rendered width of "Setup by " exactly, or
@@ -64,7 +111,9 @@ function initSmoothScroll(container: HTMLElement) {
   // section it reads as out of view. Anything that changes layout height after
   // init — a late image, a webfont swap — leaves those offsets stale and can
   // blank out a section that is actually on screen. Re-measure when it happens.
-  const remeasure = () => scroll?.update();
+  const remeasure = () => {
+    if (!introRunning) scroll?.update();
+  };
   document.fonts.ready.then(remeasure);
   window.addEventListener("load", remeasure);
   el.querySelectorAll("img").forEach((img) => {
@@ -337,7 +386,7 @@ function coverScreen(): Promise<void> {
 // Mirrors the reference's pageTransitionIn tail: the curtain's exit slide
 // starts before the word's fade-in/rise finishes, and the word's fade-out
 // overlaps the start of that slide instead of waiting for it.
-function revealScreen(): Promise<void> {
+function revealScreen(container: HTMLElement): Promise<void> {
   return new Promise((resolve) => {
     const tl = gsap.timeline({ onComplete: resolve });
     const bh = bulgeHeight();
@@ -347,7 +396,11 @@ function revealScreen(): Promise<void> {
     tl.to(".loading-words", { opacity: 1, duration: 0.8, ease: "power4.out", delay: 0.05 });
     tl.to(".loading-words h2.page-word", { y: -50, duration: 0.8, ease: "power4.out", delay: 0.05 }, "<");
 
-    tl.to(".loading-screen", { top: "-100%", duration: 0.8, ease: "power3.inOut" }, "-=0.2");
+    // Labelled so the `.once-in` rise below can be pinned to the exact moment
+    // the curtain starts sliding away, without depending on where the resets
+    // that follow it happen to land.
+    tl.addLabel("lift", "-=0.2");
+    tl.to(".loading-screen", { top: "-100%", duration: 0.8, ease: "power3.inOut" }, "lift");
     tl.to(".loading-words", { opacity: 0, duration: 0.6, ease: "none" }, "-=0.8");
     tl.to(".rounded-div-wrap.bottom", { height: 0, duration: 0.85, ease: "power3.inOut" }, "-=0.6");
 
@@ -355,13 +408,16 @@ function revealScreen(): Promise<void> {
     tl.set(".rounded-div-wrap.bottom", { height: bh });
     tl.set(".loading-words", { opacity: 0 });
     tl.set(".loading-words h2.page-word", { y: 0 });
+
+    const rise = onceInTween(container, 1, 0.05);
+    if (rise) tl.add(rise, "lift");
   });
 }
 
 // Mirrors the reference's initLoaderHome(): a Hello/Bonjour/... greeting
 // carousel that flashes through each word in turn before the curtain lifts
 // on the very first load of the home page.
-function playGreeting(): Promise<void> {
+function playGreeting(container: HTMLElement): Promise<void> {
   return new Promise((resolve) => {
     const tl = gsap.timeline({ onComplete: resolve });
     const bh = bulgeHeight();
@@ -399,6 +455,10 @@ function playGreeting(): Promise<void> {
     );
     tl.to(".loading-words h2.greeting-last", { opacity: 1, duration: 0.01, delay: 0.15 });
 
+    // The greeting carousel's length isn't known up front, so the curtain lift
+    // gets a label the `.once-in` rise can hang off (past the tween's own 0.2s
+    // lead-in) instead of a computed delay.
+    tl.addLabel("lift");
     tl.to(".loading-screen", { top: "-100%", duration: 0.8, ease: "power4.inOut", delay: 0.2 });
     tl.to(".rounded-div-wrap.bottom", { height: 0, duration: 1, ease: "power4.inOut" }, "-=0.8");
     tl.to(".loading-words", { opacity: 0, duration: 0.3, ease: "none" }, "-=0.8");
@@ -410,6 +470,11 @@ function playGreeting(): Promise<void> {
       opacity: 0,
     });
     tl.set(".loading-words h2.page-word", { display: "block" });
+
+    // Longer and more spread out than a page transition — the reference gives
+    // the cold load 1.5s and a 0.07s stagger.
+    const rise = onceInTween(container, 1.5, 0.07);
+    if (rise) tl.add(rise, "lift+=0.2");
   });
 }
 
@@ -420,15 +485,19 @@ barba.init({
       once({ next }) {
         setupNav(next.container, next.namespace);
         initSmoothScroll(next.container);
+        // Cover the page and park the `.once-in` elements in the same tick, so
+        // the drop is never visible: the curtain is already over it, and the
+        // clone initScrollLetters makes below inherits the parked position.
+        gsap.set(".loading-screen", { top: "0%" });
+        armOnceIn(next.container, "load");
         initScrollLetters(next.container);
         initCreditSwap(next.container);
         initMatDoodles(next.container);
         initRansomTitles(next.container);
         if (next.namespace === "home") {
-          playGreeting();
+          playGreeting(next.container);
         } else {
-          gsap.set(".loading-screen", { top: "0%" });
-          revealScreen();
+          revealScreen(next.container);
         }
       },
       async leave({ current }) {
@@ -440,6 +509,7 @@ barba.init({
         setLoadingWord(next.namespace);
         setupNav(next.container, next.namespace);
         initSmoothScroll(next.container);
+        armOnceIn(next.container, "transition");
         initScrollLetters(next.container);
         initCreditSwap(next.container);
         initMatDoodles(next.container);
@@ -447,7 +517,7 @@ barba.init({
       },
       async enter({ next }) {
         next.container.style.display = "";
-        await revealScreen();
+        await revealScreen(next.container);
       },
     },
   ],
