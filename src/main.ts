@@ -128,48 +128,94 @@ function initScrollLetters(container: HTMLElement) {
   });
 }
 
-// Lets each ".mat-doodle" sticker be dragged anywhere within its layer.
-// Pointer events (not mouse/touch) so one listener covers both input types,
-// and stopPropagation keeps drags from being swallowed by locomotive-scroll's
-// own touch handling on the smooth-scroll container.
+// Lets each ".mat-doodle" sticker be dragged anywhere within its layer, and
+// rotated with a two-finger twist. Pointer events (not mouse/touch) so one
+// listener covers both input types, and stopPropagation keeps gestures from
+// being swallowed by locomotive-scroll's own touch handling on the
+// smooth-scroll container.
 function initMatDoodles(container: HTMLElement) {
   const doodles = container.querySelectorAll<HTMLElement>(".mat-doodle");
 
   doodles.forEach((doodle) => {
-    doodle.addEventListener("pointerdown", (event) => {
-      const layer = doodle.parentElement;
-      if (!layer) return;
+    const layer = doodle.parentElement;
+    if (!layer) return;
 
+    const pointers = new Map<number, { x: number; y: number }>();
+    let rotation = 0;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let rotateStartAngle = 0;
+    let rotateBaseRotation = 0;
+
+    const angleBetween = (a: { x: number; y: number }, b: { x: number; y: number }) =>
+      (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
+
+    // offsetLeft/offsetTop are the element's unrotated layout position, so the
+    // drag math stays correct no matter how the sticker is currently rotated
+    // (its getBoundingClientRect would otherwise be a skewed bounding box).
+    const beginDrag = (point: { x: number; y: number }) => {
+      const layerRect = layer.getBoundingClientRect();
+      dragOffsetX = point.x - layerRect.left - doodle.offsetLeft;
+      dragOffsetY = point.y - layerRect.top - doodle.offsetTop;
+    };
+
+    const beginRotate = () => {
+      const [a, b] = [...pointers.values()];
+      rotateStartAngle = angleBetween(a, b);
+      rotateBaseRotation = rotation;
+    };
+
+    doodle.addEventListener("pointerdown", (event) => {
       event.preventDefault();
       event.stopPropagation();
       doodle.setPointerCapture(event.pointerId);
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
-      const layerRect = layer.getBoundingClientRect();
-      const doodleRect = doodle.getBoundingClientRect();
-      const offsetX = event.clientX - doodleRect.left;
-      const offsetY = event.clientY - doodleRect.top;
+      if (pointers.size === 1) {
+        beginDrag({ x: event.clientX, y: event.clientY });
+      } else if (pointers.size === 2) {
+        beginRotate();
+      }
+    });
 
-      const onMove = (moveEvent: PointerEvent) => {
-        const maxLeft = layerRect.width - doodleRect.width;
-        const maxTop = layerRect.height - doodleRect.height;
-        const left = moveEvent.clientX - layerRect.left - offsetX;
-        const top = moveEvent.clientY - layerRect.top - offsetY;
+    doodle.addEventListener("pointermove", (event) => {
+      if (!pointers.has(event.pointerId)) return;
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+
+      if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        rotation = rotateBaseRotation + (angleBetween(a, b) - rotateStartAngle);
+        doodle.style.transform = `rotate(${rotation}deg)`;
+        return;
+      }
+
+      if (pointers.size === 1) {
+        const layerRect = layer.getBoundingClientRect();
+        const maxLeft = layerRect.width - doodle.offsetWidth;
+        const maxTop = layerRect.height - doodle.offsetHeight;
+        const left = event.clientX - layerRect.left - dragOffsetX;
+        const top = event.clientY - layerRect.top - dragOffsetY;
 
         doodle.style.left = `${Math.min(Math.max(left, 0), Math.max(maxLeft, 0))}px`;
         doodle.style.top = `${Math.min(Math.max(top, 0), Math.max(maxTop, 0))}px`;
-      };
-
-      const onUp = (upEvent: PointerEvent) => {
-        doodle.releasePointerCapture(upEvent.pointerId);
-        doodle.removeEventListener("pointermove", onMove);
-        doodle.removeEventListener("pointerup", onUp);
-        doodle.removeEventListener("pointercancel", onUp);
-      };
-
-      doodle.addEventListener("pointermove", onMove);
-      doodle.addEventListener("pointerup", onUp);
-      doodle.addEventListener("pointercancel", onUp);
+      }
     });
+
+    const endPointer = (event: PointerEvent) => {
+      if (!pointers.has(event.pointerId)) return;
+      pointers.delete(event.pointerId);
+      doodle.releasePointerCapture(event.pointerId);
+
+      if (pointers.size === 2) {
+        beginRotate();
+      } else if (pointers.size === 1) {
+        const [remaining] = [...pointers.values()];
+        beginDrag(remaining);
+      }
+    };
+
+    doodle.addEventListener("pointerup", endPointer);
+    doodle.addEventListener("pointercancel", endPointer);
   });
 }
 
