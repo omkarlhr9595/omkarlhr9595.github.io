@@ -505,7 +505,11 @@ function revealScreen(container: HTMLElement): Promise<void> {
     tl.set(".rounded-div-wrap.bottom", { height: bh });
 
     tl.to(".loading-words", { opacity: 1, duration: 0.8, ease: "power4.out", delay: 0.05 });
-    tl.to(".loading-words h2.page-word", { y: -50, duration: 0.8, ease: "power4.out", delay: 0.05 }, "<");
+    tl.to(
+      ".loading-words h2.page-word",
+      { y: -50, duration: 0.8, ease: "power4.out", delay: 0.05 },
+      "<"
+    );
 
     // Labelled so the `.once-in` rise below can be pinned to the exact moment
     // the curtain starts sliding away, without depending on where the resets

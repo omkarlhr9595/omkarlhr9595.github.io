@@ -27,7 +27,14 @@ export default {
           "sans-serif",
         ],
         body: ["Pixelify Sans", "sans-serif"],
-        heading: ["Montserrat", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
+        heading: [
+          "Montserrat",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Arial",
+          "sans-serif",
+        ],
         greeting: [
           "Plus Jakarta Sans",
           "-apple-system",

@@ -1,0 +1,10 @@
+node_modules
+dist
+
+# Vendored reference site — kept byte-for-byte as downloaded so it stays a
+# trustworthy source to port from.
+ref
+
+# Generated / not ours to format
+package-lock.json
+public/assets
