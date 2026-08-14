@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./projects/**/*.html", "./src/**/*.ts"],
+  content: [
+    "./index.html",
+    "./setup/**/*.html",
+    "./content/**/*.html",
+    "./gaming/**/*.html",
+    "./projects/**/*.html",
+    "./src/**/*.ts",
+  ],
   theme: {
     extend: {
       keyframes: {

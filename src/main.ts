@@ -4,6 +4,7 @@ import barba from "@barba/core";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LocomotiveScroll from "locomotive-scroll";
+import { NAV_ROUTES, initNav, updateNavScrolled } from "./nav";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +38,7 @@ function initSmoothScroll(container: HTMLElement) {
 
   scroll.on("scroll", (event) => {
     currentScrollY = event.scroll.y;
+    updateNavScrolled(container, currentScrollY);
     ScrollTrigger.update();
   });
 
@@ -294,10 +296,19 @@ function initRansomTitles(container: HTMLElement) {
   shuffleButton?.addEventListener("click", () => shuffleRansomLetters(container));
 }
 
-const PAGE_NAMES: Record<string, string> = {
-  home: "Home",
-  projects: "Projects",
-};
+const PAGE_NAMES: Record<string, string> = Object.fromEntries(
+  NAV_ROUTES.map((route) => [route.namespace, route.label])
+);
+
+// The nav lives inside the Barba container, so it is re-rendered per page —
+// which is also how the active-route dot and the theme stay correct. Opening it
+// has to freeze Locomotive, otherwise the page keeps scrolling behind the panel.
+function setupNav(container: HTMLElement, namespace: string) {
+  initNav(container, namespace, {
+    onOpen: () => scroll?.stop(),
+    onClose: () => scroll?.start(),
+  });
+}
 
 function setLoadingWord(namespace: string) {
   const word = document.querySelector(".loading-words h2.page-word");
@@ -407,6 +418,7 @@ barba.init({
     {
       name: "curtain-wipe",
       once({ next }) {
+        setupNav(next.container, next.namespace);
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
         initCreditSwap(next.container);
@@ -426,6 +438,7 @@ barba.init({
       },
       beforeEnter({ next }) {
         setLoadingWord(next.namespace);
+        setupNav(next.container, next.namespace);
         initSmoothScroll(next.container);
         initScrollLetters(next.container);
         initCreditSwap(next.container);
