@@ -31,9 +31,9 @@ export const NAV_ROUTES: NavRoute[] = [
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/omkarlhr9595" },
-  { label: "Instagram", href: "https://www.instagram.com/omkarlhr9595/" },
-  { label: "Twitter", href: "https://twitter.com/omkarlhr9595" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/omkarlhr9595/" },
+  { label: "Instagram", href: "https://www.instagram.com/omkar_lhr_9595/" },
+  { label: "X", href: "https://x.com/Omkar_lhr_9595" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/omkar-lohar/" },
 ];
 
 // --- Shared class fragments ----------------------------------------------
