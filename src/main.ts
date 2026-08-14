@@ -179,20 +179,128 @@ function initScrollLetters(container: HTMLElement) {
   });
 }
 
-// Lets each ".mat-doodle" sticker be dragged anywhere within its layer, and
+const DRAGGABLE_TILT = 14; // max initial tilt, degrees either way
+// Vertical slice of the layer the ransom-note title occupies, kept clear so
+// nothing spawns on top of the lettering.
+const DRAGGABLE_CLEAR_BAND = { top: 36, bottom: 64 };
+const DRAGGABLE_PLACEMENT_TRIES = 40;
+
+type DraggableRect = { left: number; top: number; width: number; height: number };
+
+const randomBetween = (min: number, max: number) => min + Math.random() * (max - min);
+
+const rectsOverlap = (a: DraggableRect, b: DraggableRect) =>
+  a.left < b.left + b.width &&
+  b.left < a.left + a.width &&
+  a.top < b.top + b.height &&
+  b.top < a.top + a.height;
+
+// Current tilt per item, kept on the element rather than in a gesture closure:
+// the shuffle button re-rolls tilt from outside those handlers, and they have
+// to pick up the new angle instead of resuming from a stale one.
+const draggableRotation = new WeakMap<HTMLElement, number>();
+
+const getRotation = (item: HTMLElement) => draggableRotation.get(item) ?? 0;
+
+function setRotation(item: HTMLElement, degrees: number) {
+  draggableRotation.set(item, degrees);
+  item.style.transform = `rotate(${degrees}deg)`;
+}
+
+// Scatters one item at random rather than at a hand-picked spot, so the mat
+// reads as lived-in and no two loads look alike. Written as percentages of the
+// layer, not pixels, so an untouched item keeps its place when the mat resizes.
+//
+// Vertically it picks one of the two bands either side of the title;
+// horizontally anywhere it fits. Landing on something already placed is
+// handled by resampling rather than by packing properly — with a handful of
+// items that clears on the first or second try, and if a layer is ever too
+// crowded to place cleanly the last candidate is used as-is.
+function scatterDraggable(item: HTMLElement, layer: HTMLElement, placed: DraggableRect[]) {
+  const width = (item.offsetWidth / layer.clientWidth) * 100;
+  const height = (item.offsetHeight / layer.clientHeight) * 100;
+  if (!width || !height) return;
+
+  const bands: [number, number][] = (
+    [
+      [0, DRAGGABLE_CLEAR_BAND.top - height],
+      [DRAGGABLE_CLEAR_BAND.bottom, 100 - height],
+    ] as [number, number][]
+  ).filter(([min, max]) => max > min);
+  if (!bands.length) bands.push([0, Math.max(100 - height, 0)]);
+
+  let candidate: DraggableRect | null = null;
+  for (let attempt = 0; attempt < DRAGGABLE_PLACEMENT_TRIES; attempt += 1) {
+    const [min, max] = bands[Math.floor(Math.random() * bands.length)];
+    const next: DraggableRect = {
+      left: randomBetween(0, Math.max(100 - width, 0)),
+      top: randomBetween(min, max),
+      width,
+      height,
+    };
+    candidate = next;
+    if (!placed.some((rect) => rectsOverlap(next, rect))) break;
+  }
+  if (!candidate) return;
+
+  placed.push(candidate);
+  item.style.left = `${candidate.left.toFixed(2)}%`;
+  item.style.top = `${candidate.top.toFixed(2)}%`;
+}
+
+// Re-rolls tilt and position for every item in one pass — used both for the
+// initial scatter and by the shuffle button. One pass, not one call per item,
+// because the no-overlap check needs to see every sibling placed this round.
+function randomizeDraggables(container: HTMLElement) {
+  // Tracked per layer, since the rects are percentages of their own layer's box.
+  const placedByLayer = new Map<HTMLElement, DraggableRect[]>();
+
+  container.querySelectorAll<HTMLElement>(".draggable").forEach((item) => {
+    const layer = item.parentElement;
+    if (!layer) return;
+
+    setRotation(item, randomBetween(-DRAGGABLE_TILT, DRAGGABLE_TILT));
+
+    const placed = placedByLayer.get(layer) ?? [];
+    placedByLayer.set(layer, placed);
+    scatterDraggable(item, layer, placed);
+  });
+}
+
+// Placement needs each item's rendered size, and an item has no height until
+// its image lands — so the first scatter waits for all of them. Nothing is
+// painted before then, so the wait costs no visible flash. Errors resolve too,
+// otherwise one broken asset would strand every item at the layer's origin.
+function whenDraggableImagesReady(container: HTMLElement): Promise<unknown> {
+  const images = [...container.querySelectorAll<HTMLImageElement>(".draggable img")];
+  return Promise.all(
+    images
+      .filter((image) => !image.complete)
+      .map(
+        (image) =>
+          new Promise((resolve) => {
+            image.addEventListener("load", resolve, { once: true });
+            image.addEventListener("error", resolve, { once: true });
+          })
+      )
+  );
+}
+
+// Lets each ".draggable" sticker be dragged anywhere within its layer, and
 // rotated with a two-finger twist. Pointer events (not mouse/touch) so one
 // listener covers both input types, and stopPropagation keeps gestures from
 // being swallowed by locomotive-scroll's own touch handling on the
 // smooth-scroll container.
-function initMatDoodles(container: HTMLElement) {
-  const doodles = container.querySelectorAll<HTMLElement>(".mat-doodle");
+function initDraggables(container: HTMLElement) {
+  const draggables = container.querySelectorAll<HTMLElement>(".draggable");
 
-  doodles.forEach((doodle) => {
-    const layer = doodle.parentElement;
+  whenDraggableImagesReady(container).then(() => randomizeDraggables(container));
+
+  draggables.forEach((draggable) => {
+    const layer = draggable.parentElement;
     if (!layer) return;
 
     const pointers = new Map<number, { x: number; y: number }>();
-    let rotation = 0;
     let dragOffsetX = 0;
     let dragOffsetY = 0;
     let rotateStartAngle = 0;
@@ -206,20 +314,20 @@ function initMatDoodles(container: HTMLElement) {
     // (its getBoundingClientRect would otherwise be a skewed bounding box).
     const beginDrag = (point: { x: number; y: number }) => {
       const layerRect = layer.getBoundingClientRect();
-      dragOffsetX = point.x - layerRect.left - doodle.offsetLeft;
-      dragOffsetY = point.y - layerRect.top - doodle.offsetTop;
+      dragOffsetX = point.x - layerRect.left - draggable.offsetLeft;
+      dragOffsetY = point.y - layerRect.top - draggable.offsetTop;
     };
 
     const beginRotate = () => {
       const [a, b] = [...pointers.values()];
       rotateStartAngle = angleBetween(a, b);
-      rotateBaseRotation = rotation;
+      rotateBaseRotation = getRotation(draggable);
     };
 
-    doodle.addEventListener("pointerdown", (event) => {
+    draggable.addEventListener("pointerdown", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      doodle.setPointerCapture(event.pointerId);
+      draggable.setPointerCapture(event.pointerId);
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
       if (pointers.size === 1) {
@@ -229,33 +337,32 @@ function initMatDoodles(container: HTMLElement) {
       }
     });
 
-    doodle.addEventListener("pointermove", (event) => {
+    draggable.addEventListener("pointermove", (event) => {
       if (!pointers.has(event.pointerId)) return;
       pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
       if (pointers.size === 2) {
         const [a, b] = [...pointers.values()];
-        rotation = rotateBaseRotation + (angleBetween(a, b) - rotateStartAngle);
-        doodle.style.transform = `rotate(${rotation}deg)`;
+        setRotation(draggable, rotateBaseRotation + (angleBetween(a, b) - rotateStartAngle));
         return;
       }
 
       if (pointers.size === 1) {
         const layerRect = layer.getBoundingClientRect();
-        const maxLeft = layerRect.width - doodle.offsetWidth;
-        const maxTop = layerRect.height - doodle.offsetHeight;
+        const maxLeft = layerRect.width - draggable.offsetWidth;
+        const maxTop = layerRect.height - draggable.offsetHeight;
         const left = event.clientX - layerRect.left - dragOffsetX;
         const top = event.clientY - layerRect.top - dragOffsetY;
 
-        doodle.style.left = `${Math.min(Math.max(left, 0), Math.max(maxLeft, 0))}px`;
-        doodle.style.top = `${Math.min(Math.max(top, 0), Math.max(maxTop, 0))}px`;
+        draggable.style.left = `${Math.min(Math.max(left, 0), Math.max(maxLeft, 0))}px`;
+        draggable.style.top = `${Math.min(Math.max(top, 0), Math.max(maxTop, 0))}px`;
       }
     });
 
     const endPointer = (event: PointerEvent) => {
       if (!pointers.has(event.pointerId)) return;
       pointers.delete(event.pointerId);
-      doodle.releasePointerCapture(event.pointerId);
+      draggable.releasePointerCapture(event.pointerId);
 
       if (pointers.size === 2) {
         beginRotate();
@@ -265,13 +372,13 @@ function initMatDoodles(container: HTMLElement) {
       }
     };
 
-    doodle.addEventListener("pointerup", endPointer);
-    doodle.addEventListener("pointercancel", endPointer);
+    draggable.addEventListener("pointerup", endPointer);
+    draggable.addEventListener("pointercancel", endPointer);
 
     // Corner handle: mouse/trackpad rotate, since neither has a pinch gesture.
     // Shares the same `rotation` state as the two-finger path above, so
     // switching between touch-twist and handle-drag stays continuous.
-    const handle = doodle.querySelector<HTMLElement>(".mat-doodle-rotate");
+    const handle = draggable.querySelector<HTMLElement>(".draggable-rotate");
     if (!handle) return;
 
     let handleStartAngle = 0;
@@ -280,8 +387,8 @@ function initMatDoodles(container: HTMLElement) {
     const angleFromCenter = (point: { x: number; y: number }) => {
       const layerRect = layer.getBoundingClientRect();
       const center = {
-        x: layerRect.left + doodle.offsetLeft + doodle.offsetWidth / 2,
-        y: layerRect.top + doodle.offsetTop + doodle.offsetHeight / 2,
+        x: layerRect.left + draggable.offsetLeft + draggable.offsetWidth / 2,
+        y: layerRect.top + draggable.offsetTop + draggable.offsetHeight / 2,
       };
       return angleBetween(center, point);
     };
@@ -291,14 +398,13 @@ function initMatDoodles(container: HTMLElement) {
       event.stopPropagation();
       handle.setPointerCapture(event.pointerId);
       handleStartAngle = angleFromCenter({ x: event.clientX, y: event.clientY });
-      handleBaseRotation = rotation;
+      handleBaseRotation = getRotation(draggable);
     });
 
     handle.addEventListener("pointermove", (event) => {
       if (!handle.hasPointerCapture(event.pointerId)) return;
       const angle = angleFromCenter({ x: event.clientX, y: event.clientY });
-      rotation = handleBaseRotation + (angle - handleStartAngle);
-      doodle.style.transform = `rotate(${rotation}deg)`;
+      setRotation(draggable, handleBaseRotation + (angle - handleStartAngle));
     });
 
     const endHandleRotate = (event: PointerEvent) => {
@@ -341,8 +447,13 @@ function shuffleRansomLetters(container: ParentNode) {
 function initRansomTitles(container: HTMLElement) {
   shuffleRansomLetters(container);
 
+  // The button re-rolls the whole mat, not just the lettering — the draggable
+  // items get fresh positions and tilts alongside it.
   const shuffleButton = container.querySelector<HTMLButtonElement>("[data-ransom-shuffle]");
-  shuffleButton?.addEventListener("click", () => shuffleRansomLetters(container));
+  shuffleButton?.addEventListener("click", () => {
+    shuffleRansomLetters(container);
+    randomizeDraggables(container);
+  });
 }
 
 const PAGE_NAMES: Record<string, string> = Object.fromEntries(
@@ -492,7 +603,7 @@ barba.init({
         armOnceIn(next.container, "load");
         initScrollLetters(next.container);
         initCreditSwap(next.container);
-        initMatDoodles(next.container);
+        initDraggables(next.container);
         initRansomTitles(next.container);
         if (next.namespace === "home") {
           playGreeting(next.container);
@@ -512,7 +623,7 @@ barba.init({
         armOnceIn(next.container, "transition");
         initScrollLetters(next.container);
         initCreditSwap(next.container);
-        initMatDoodles(next.container);
+        initDraggables(next.container);
         initRansomTitles(next.container);
       },
       async enter({ next }) {
