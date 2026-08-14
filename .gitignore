@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 ref
+
+# Full-res image originals, kept locally for re-encoding
+source-images

@@ -137,11 +137,33 @@
                 data-scroll-position="top"
               >
                 <picture>
-                  <source media="(max-width: 720px)" srcset="/assets/setup_2.png" />
+                  <source
+                    media="(max-width: 720px)"
+                    type="image/webp"
+                    sizes="100vw"
+                    srcset="
+                      /assets/setup_2-720.webp   720w,
+                      /assets/setup_2-1080.webp 1080w,
+                      /assets/setup_2-1440.webp 1440w
+                    "
+                  />
+                  <source
+                    type="image/webp"
+                    sizes="100vw"
+                    srcset="
+                      /assets/setup_1-1280.webp 1280w,
+                      /assets/setup_1-1920.webp 1920w,
+                      /assets/setup_1-2560.webp 2560w
+                    "
+                  />
                   <img
                     class="absolute left-1/2 h-full w-auto -translate-x-1/2 object-cover max-[720px]:w-full"
-                    src="/assets/setup_1.png"
+                    src="/assets/setup_1-1920.webp"
                     alt="My setup"
+                    width="1920"
+                    height="1080"
+                    fetchpriority="high"
+                    decoding="async"
                   />
                 </picture>
               </div>
@@ -185,9 +207,11 @@
                        initDraggables(); add more items by copying this block. -->
                   <div class="draggable absolute w-12 select-none sm:w-16 md:w-20">
                     <img
-                      src="/assets/coke.png"
+                      src="/assets/coke.webp"
                       alt=""
                       draggable="false"
+                      loading="lazy"
+                      decoding="async"
                       class="draggable-image block h-full w-full cursor-grab touch-none active:cursor-grabbing"
                     />
                     <div class="group/rotate absolute bottom-0 right-0 h-1/4 w-1/4">
