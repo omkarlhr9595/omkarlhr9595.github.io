@@ -362,11 +362,29 @@ const isDesktop = () => window.innerWidth > 540;
 // The reference tracks `--vh` in JS because mobile browsers change what `100vh`
 // means when their chrome collapses, which would otherwise jump the height of
 // an already-open sidebar mid-scroll.
+//
+// Which is also why this deliberately does NOT re-measure on every resize: iOS
+// fires `resize` each time the URL bar collapses or expands during a scroll, so
+// tracking it would reintroduce the very mid-scroll jump `--vh` exists to
+// prevent. Only a width change — a rotation, or a desktop window resize — is a
+// real viewport change worth re-measuring for. This matches the reference, which
+// samples once on ready and then only on hamburger click.
 function trackViewportHeight(signal: AbortSignal) {
+  let lastWidth = window.innerWidth;
+
   const update = () =>
     document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
+
   update();
-  window.addEventListener("resize", update, { signal });
+  window.addEventListener(
+    "resize",
+    () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      update();
+    },
+    { signal }
+  );
 }
 
 // Pulls the button toward the cursor, with the label trailing at half strength,
