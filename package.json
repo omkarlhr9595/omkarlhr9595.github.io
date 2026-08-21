@@ -13,12 +13,10 @@
   },
   "dependencies": {
     "@barba/core": "^2.10.3",
-    "gsap": "^3.15.0",
-    "locomotive-scroll": "^4.1.4"
+    "gsap": "^3.15.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@types/locomotive-scroll": "^4.1.4",
     "@types/node": "^26.2.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.21.0",
