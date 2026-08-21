@@ -43,8 +43,8 @@
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
-    <script type="module" crossorigin src="/assets/main-C4-Jz3WR.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-B8H0cS20.css">
+    <script type="module" crossorigin src="/assets/main-BRx7RLUe.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-COBY-Ug8.css">
   </head>
   <body class="bg-red">
     <div data-barba="wrapper" class="relative min-h-screen w-full">
@@ -355,5 +355,12 @@
         </aside>
       </div>
     </div>
+    <!-- Inverting lens that trails the pointer. It sits outside the barba
+         container so it survives page swaps, and above everything except the
+         loading curtain. `backdrop-filter` inverts whatever it passes over. -->
+    <div
+      data-cursor
+      class="pointer-events-none fixed left-0 top-0 z-[600] h-16 w-16 rounded-full opacity-0 [backdrop-filter:invert(1)] max-[1024px]:hidden"
+    ></div>
   </body>
 </html>
