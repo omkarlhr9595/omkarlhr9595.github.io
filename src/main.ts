@@ -166,6 +166,51 @@ function playGreeting(container: HTMLElement): Promise<void> {
   });
 }
 
+// Nav: the Pune clock and the mobile drawer. Both are wired at the document
+// level rather than per-container, so they keep working across barba swaps
+// without needing to be re-mounted on every page enter.
+const puneTime = () =>
+  new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date());
+
+function paintClocks() {
+  const stamp = puneTime();
+  document
+    .querySelectorAll<HTMLElement>("[data-local-time]")
+    .forEach((el) => (el.textContent = stamp));
+}
+
+function setMenu(open: boolean) {
+  document
+    .querySelectorAll<HTMLElement>("[data-menu-panel], [data-menu-backdrop]")
+    .forEach((el) => (el.dataset.open = String(open)));
+  document.body.style.overflow = open ? "hidden" : "";
+}
+
+paintClocks();
+setInterval(paintClocks, 15_000);
+
+document.addEventListener("click", (event) => {
+  const target = event.target as HTMLElement | null;
+  if (target?.closest("[data-menu-toggle]")) setMenu(true);
+  else if (target?.closest("[data-menu-close]")) setMenu(false);
+  else if (target?.closest("[data-menu-backdrop]")) setMenu(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMenu(false);
+});
+
+// A drawer left open while the viewport grows past `md` would strand the scroll
+// lock, since the panel itself is hidden at that width.
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 768) setMenu(false);
+});
+
 barba.init({
   transitions: [
     {
