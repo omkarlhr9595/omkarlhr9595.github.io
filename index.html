@@ -43,10 +43,10 @@
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
-    <script type="module" crossorigin src="/assets/main-B4AoHFpP.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-C_oW43fg.css">
+    <script type="module" crossorigin src="/assets/main-jPpUrWV3.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-DmzqIBap.css">
   </head>
-  <body class="bg-white">
+  <body class="bg-red">
     <div data-barba="wrapper" class="relative min-h-screen w-full">
       <div class="pointer-events-none fixed inset-0 z-[999] overflow-hidden">
         <div class="loading-screen relative top-full h-full w-full bg-black [will-change:top]">
@@ -124,13 +124,98 @@
         </div>
       </div>
       <div data-barba="container" data-barba-namespace="home" class="relative w-full">
-        <nav class="flex gap-6 p-6 font-sans text-sm text-black">
-          <a href="/">Home</a>
-          <a href="/setup/">Setup</a>
-          <a href="/content/">Content</a>
-          <a href="/gaming/">Gaming</a>
-          <a href="/projects/">Projects</a>
-        </nav>
+        <header class="relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-red">
+          <nav
+            class="relative z-40 flex items-center justify-between px-4 py-5 font-sans text-lg text-white sm:px-6 sm:text-xl"
+          >
+            <div class="flex items-center gap-6 sm:gap-12">
+              <a
+                href="/"
+                class="whitespace-nowrap font-heading font-semibold transition-opacity hover:opacity-60"
+                >&copy; Omkar Lohar</a
+              >
+              <p class="hidden whitespace-nowrap md:block">
+                Pune: <span data-local-time>--:-- --</span>
+              </p>
+            </div>
+
+            <ul class="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex lg:gap-12">
+              <li><a href="/content/" class="transition-opacity hover:opacity-60">Content</a></li>
+              <li><a href="/gaming/" class="transition-opacity hover:opacity-60">Gaming</a></li>
+              <li><a href="/projects/" class="transition-opacity hover:opacity-60">Projects</a></li>
+            </ul>
+
+            <a href="/setup/" class="hidden transition-opacity hover:opacity-60 md:block">Setup</a>
+
+            <button
+              type="button"
+              data-menu-toggle
+              class="transition-opacity hover:opacity-60 md:hidden"
+            >
+              Menu
+            </button>
+          </nav>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <img
+              src="/assets/hero 1.png"
+              alt="Omkar Lohar"
+              width="1230"
+              height="1278"
+              class="once-in h-full w-auto max-w-none select-none object-cover"
+            />
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
+          ></div>
+          <div class="relative mt-auto w-full max-w-[96.24vh] self-center">
+            <div
+              class="flex flex-col gap-6 px-4 pb-5 font-sans text-lg leading-snug text-white sm:flex-row sm:items-end sm:justify-between sm:text-xl lg:text-2xl"
+            >
+              <p class="once-in text-right mix-blend-difference sm:text-left">
+                Software Engineer<br />Gamer<br />Content Creator
+              </p>
+              <p class="once-in max-w-[26ch] mix-blend-difference">
+                Ideas are cheap, execution is everything.
+              </p>
+            </div>
+            <h1
+              class="pointer-events-none select-none px-2 pb-1 font-heading text-[clamp(3.5rem,19vw,15rem)] font-black uppercase leading-[0.95] tracking-[-0.03em] text-white mix-blend-difference"
+            >
+              <span class="block text-left">Geek</span>
+              <span class="block text-right">+ Gamer</span>
+            </h1>
+          </div>
+          <div
+            class="pointer-events-none fixed left-0 top-0 h-[300%] w-[300%] animate-grain bg-[url('/assets/noise.png')] bg-repeat opacity-[0.18] [will-change:transform]"
+          ></div>
+        </header>
+
+        <div
+          data-menu-backdrop
+          data-open="false"
+          class="pointer-events-none fixed inset-0 z-[500] bg-black/60 opacity-0 transition-opacity duration-500 data-[open=true]:pointer-events-auto data-[open=true]:opacity-100 md:hidden"
+        ></div>
+        <aside
+          data-menu-panel
+          data-open="false"
+          class="fixed inset-y-0 right-0 z-[501] flex w-[78vw] max-w-xs translate-x-full flex-col bg-black px-6 py-5 font-sans text-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] data-[open=true]:translate-x-0 md:hidden"
+        >
+          <button
+            type="button"
+            data-menu-close
+            class="self-end text-lg transition-opacity hover:opacity-60"
+          >
+            Close
+          </button>
+          <ul class="mt-10 flex flex-col gap-6 text-3xl">
+            <li><a href="/" data-menu-close>Home</a></li>
+            <li><a href="/setup/" data-menu-close>Setup</a></li>
+            <li><a href="/content/" data-menu-close>Content</a></li>
+            <li><a href="/gaming/" data-menu-close>Gaming</a></li>
+            <li><a href="/projects/" data-menu-close>Projects</a></li>
+          </ul>
+          <p class="mt-auto text-lg opacity-70">Pune: <span data-local-time>--:-- --</span></p>
+        </aside>
       </div>
     </div>
   </body>
