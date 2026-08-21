@@ -1,6 +1,9 @@
 import "./index.css";
 import barba from "@barba/core";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const bulgeHeight = () => (window.innerWidth > 540 ? "10vh" : "5vh");
 
@@ -211,6 +214,53 @@ window.addEventListener("resize", () => {
   if (window.innerWidth >= 768) setMenu(false);
 });
 
+// Scroll reveals for anything below the hero. The hero's own intro runs off the
+// curtain timeline (`.once-in`), so these are kept on a separate hook.
+function mountReveals(container: HTMLElement) {
+  container.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+    gsap.from(el, {
+      y: 48,
+      opacity: 0,
+      duration: 1.1,
+      ease: "expo.out",
+      scrollTrigger: { trigger: el, start: "top 88%", once: true },
+    });
+  });
+}
+
+// The cover panel: its diagonal leading edge (`--cut`) closes to flat over the
+// travel, so the cross-cut is only ever visible mid-scroll, and its contents
+// drift up slightly slower than the page for a little parallax.
+function mountCover(container: HTMLElement) {
+  const section = container.querySelector<HTMLElement>("[data-cover]");
+  if (!section) return;
+
+  const travel = { trigger: section, start: "top bottom", end: "top top", scrub: 0.6 } as const;
+
+  gsap.to(section, { "--cut": "0vw", ease: "none", scrollTrigger: travel });
+
+  const inner = section.querySelector<HTMLElement>("[data-cover-inner]");
+  if (inner) gsap.from(inner, { y: 90, ease: "none", scrollTrigger: travel });
+
+  // White panel under a white nav is unreadable, so the nav flips to black the
+  // moment the panel's edge reaches it — and back on the way up.
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  if (!nav) return;
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: () => `top ${nav.offsetHeight}px`,
+    onEnter: () => (nav.dataset.onLight = "true"),
+    onLeaveBack: () => (nav.dataset.onLight = "false"),
+  });
+}
+
+// Triggers are measured against the container being replaced, so they have to go
+// before the next one is mounted or every start/end position is stale.
+function clearReveals() {
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+}
+
 barba.init({
   transitions: [
     {
@@ -220,18 +270,24 @@ barba.init({
         // the drop is never visible: the curtain is already over it.
         gsap.set(".loading-screen", { top: "0%" });
         armOnceIn(next.container, "load");
+        mountReveals(next.container);
+        mountCover(next.container);
         playGreeting(next.container);
       },
       async leave({ current }) {
+        clearReveals();
         await coverScreen();
         current.container.style.display = "none";
       },
       beforeEnter({ next }) {
         setLoadingWord(next.namespace);
         armOnceIn(next.container, "transition");
+        mountReveals(next.container);
+        mountCover(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";
+        ScrollTrigger.refresh();
         await revealScreen(next.container);
       },
     },

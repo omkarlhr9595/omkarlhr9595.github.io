@@ -122,37 +122,41 @@
         </div>
       </div>
       <div data-barba="container" data-barba-namespace="home" class="relative w-full">
-        <header class="relative isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-red">
-          <nav
-            class="relative z-40 flex items-center justify-between px-4 py-5 font-sans text-lg text-white sm:px-6 sm:text-xl"
-          >
-            <div class="flex items-center gap-6 sm:gap-12">
-              <a
-                href="/"
-                class="whitespace-nowrap font-heading font-semibold transition-opacity hover:opacity-60"
-                >&copy; Omkar Lohar</a
-              >
-              <p class="hidden whitespace-nowrap md:block">
-                Pune: <span data-local-time>--:-- --</span>
-              </p>
-            </div>
-
-            <ul class="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex lg:gap-12">
-              <li><a href="/content/" class="transition-opacity hover:opacity-60">Content</a></li>
-              <li><a href="/gaming/" class="transition-opacity hover:opacity-60">Gaming</a></li>
-              <li><a href="/projects/" class="transition-opacity hover:opacity-60">Projects</a></li>
-            </ul>
-
-            <a href="/setup/" class="hidden transition-opacity hover:opacity-60 md:block">Setup</a>
-
-            <button
-              type="button"
-              data-menu-toggle
-              class="transition-opacity hover:opacity-60 md:hidden"
+        <nav
+          data-nav
+          data-on-light="false"
+          class="fixed left-0 top-0 z-[400] flex w-full items-center justify-between bg-transparent px-4 py-5 font-sans text-lg text-white transition-[color,background-color,box-shadow] duration-300 data-[on-light=true]:bg-white data-[on-light=true]:text-black data-[on-light=true]:shadow-[0_10px_30px_rgba(0,0,0,0.12)] sm:px-6 sm:text-xl"
+        >
+          <div class="flex items-center gap-6 sm:gap-12">
+            <a
+              href="/"
+              class="whitespace-nowrap font-heading font-semibold transition-opacity hover:opacity-60"
+              >&copy; Omkar Lohar</a
             >
-              Menu
-            </button>
-          </nav>
+            <p class="hidden whitespace-nowrap md:block">
+              Pune: <span data-local-time>--:-- --</span>
+            </p>
+          </div>
+
+          <ul class="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex lg:gap-12">
+            <li><a href="/content/" class="transition-opacity hover:opacity-60">Content</a></li>
+            <li><a href="/gaming/" class="transition-opacity hover:opacity-60">Gaming</a></li>
+            <li><a href="/projects/" class="transition-opacity hover:opacity-60">Projects</a></li>
+          </ul>
+
+          <a href="/setup/" class="hidden transition-opacity hover:opacity-60 md:block">Setup</a>
+
+          <button
+            type="button"
+            data-menu-toggle
+            class="transition-opacity hover:opacity-60 md:hidden"
+          >
+            Menu
+          </button>
+        </nav>
+        <header
+          class="sticky top-0 isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-red"
+        >
           <div class="absolute inset-0 flex items-center justify-center">
             <img
               src="/assets/hero%201.png"
@@ -187,6 +191,139 @@
             class="pointer-events-none fixed left-0 top-0 h-[300%] w-[300%] animate-grain bg-[url('/assets/noise.png')] bg-repeat opacity-[0.18] [will-change:transform]"
           ></div>
         </header>
+
+        <!-- Rides up over the sticky hero as a cover. `--cut` drives the
+             diagonal leading edge and is scrubbed to 0 by GSAP over the travel,
+             so the cross-cut exists only while the panel is moving and settles
+             flat once it has covered. It paints above the header by DOM order,
+             not z-index — the header is `isolate`, so its layers stay put. -->
+        <div class="relative [filter:drop-shadow(0_-24px_50px_rgba(0,0,0,0.55))]">
+          <section
+            data-cover
+            class="relative bg-white pb-[16svh] pt-[14svh] text-black [--cut:7vw] [clip-path:polygon(0_var(--cut),100%_0,100%_100%,0_100%)]"
+          >
+            <div data-cover-inner class="mx-auto w-full max-w-6xl px-6 sm:px-10">
+              <p
+                data-reveal
+                class="font-sans text-sm uppercase tracking-[0.25em] text-black/50 sm:text-base"
+              >
+                About
+              </p>
+              <h2
+                data-reveal
+                class="mt-8 max-w-4xl font-heading text-[clamp(1.6rem,3.6vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.
+              </h2>
+              <div class="mt-16 grid gap-10 sm:mt-24 sm:grid-cols-2 sm:gap-16">
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                  ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                  esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium.
+                </p>
+              </div>
+
+              <div class="mt-24 grid gap-12 sm:mt-32 sm:grid-cols-3">
+                <div data-reveal>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">08</p>
+                  <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">
+                    Years shipping software
+                  </p>
+                </div>
+                <div data-reveal>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">24</p>
+                  <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">
+                    Projects in the wild
+                  </p>
+                </div>
+                <div data-reveal>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">∞</p>
+                  <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">Hours in game</p>
+                </div>
+              </div>
+
+              <h3
+                data-reveal
+                class="mt-28 max-w-3xl font-heading text-[clamp(1.4rem,2.8vw,2.25rem)] font-semibold leading-[1.2] tracking-[-0.01em] sm:mt-40"
+              >
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+              </h3>
+
+              <div class="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-16">
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                  adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+                  dolore magnam aliquam quaerat voluptatem.
+                </p>
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                  laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure
+                  reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
+                </p>
+              </div>
+
+              <ul class="mt-28 divide-y divide-black/10 border-y border-black/10 sm:mt-40">
+                <li
+                  data-reveal
+                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
+                >
+                  <span>Lorem ipsum dolor</span>
+                  <span class="text-black/50">2026</span>
+                </li>
+                <li
+                  data-reveal
+                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
+                >
+                  <span>Consectetur adipiscing</span>
+                  <span class="text-black/50">2025</span>
+                </li>
+                <li
+                  data-reveal
+                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
+                >
+                  <span>Sed do eiusmod tempor</span>
+                  <span class="text-black/50">2024</span>
+                </li>
+                <li
+                  data-reveal
+                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
+                >
+                  <span>Ut labore et dolore</span>
+                  <span class="text-black/50">2023</span>
+                </li>
+              </ul>
+
+              <div class="mt-28 grid gap-10 sm:mt-40 sm:grid-cols-2 sm:gap-16">
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+                  praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+                  excepturi sint occaecati cupiditate non provident.
+                </p>
+                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                  Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et
+                  dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero
+                  tempore, cum soluta nobis est eligendi optio.
+                </p>
+              </div>
+
+              <p
+                data-reveal
+                class="mt-28 max-w-4xl font-sans text-lg leading-relaxed text-black/70 sm:mt-40 lg:text-xl"
+              >
+                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
+                eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
+                rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
+                consequatur aut perferendis doloribus asperiores repellat.
+              </p>
+            </div>
+          </section>
+        </div>
 
         <div
           data-menu-backdrop
