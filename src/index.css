@@ -10,3 +10,22 @@ html::-webkit-scrollbar,
 .c-scrollbar {
   display: none;
 }
+
+/* DualSense cursor. Browsers cap custom cursors at 128x128 and silently fall
+   back past that, so the art ships at 64x40 with the hotspot on the centre of
+   the touchpad. `auto` is the fallback for anything that rejects the image. */
+body {
+  cursor:
+    url("/assets/cursor-ps5.png") 32 13,
+    auto;
+}
+
+/* Interactive elements keep the same cursor rather than reverting to the system
+   hand, which would otherwise flip back and forth on every link hover. */
+a,
+button,
+[data-menu-toggle] {
+  cursor:
+    url("/assets/cursor-ps5.png") 32 13,
+    pointer;
+}

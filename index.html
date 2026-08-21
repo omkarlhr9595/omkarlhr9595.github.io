@@ -353,6 +353,13 @@
         </aside>
       </div>
     </div>
+    <!-- Inverting lens that trails the pointer. It sits outside the barba
+         container so it survives page swaps, and above everything except the
+         loading curtain. `backdrop-filter` inverts whatever it passes over. -->
+    <div
+      data-cursor
+      class="pointer-events-none fixed left-0 top-0 z-[600] h-16 w-16 rounded-full opacity-0 [backdrop-filter:invert(1)] max-[1024px]:hidden"
+    ></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -194,6 +194,34 @@ function setMenu(open: boolean) {
   document.body.style.overflow = open ? "hidden" : "";
 }
 
+// A single inverting circle trailing the pointer. `quickTo` keeps one reusable
+// tween per axis instead of allocating a new one per mousemove, so the lag stays
+// smooth under a firehose of pointer events.
+function mountCursor() {
+  const dot = document.querySelector<HTMLElement>("[data-cursor]");
+  if (!dot || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  gsap.set(dot, { xPercent: -50, yPercent: -50 });
+  const moveX = gsap.quickTo(dot, "x", { duration: 0.5, ease: "power3" });
+  const moveY = gsap.quickTo(dot, "y", { duration: 0.5, ease: "power3" });
+
+  let seen = false;
+  window.addEventListener("pointermove", (event) => {
+    if (!seen) {
+      // Jump to the first known position rather than easing in from 0,0.
+      seen = true;
+      gsap.set(dot, { x: event.clientX, y: event.clientY });
+      gsap.to(dot, { opacity: 1, duration: 0.3 });
+    }
+    moveX(event.clientX);
+    moveY(event.clientY);
+  });
+
+  document.addEventListener("pointerleave", () => gsap.to(dot, { opacity: 0, duration: 0.3 }));
+  document.addEventListener("pointerenter", () => gsap.to(dot, { opacity: 1, duration: 0.3 }));
+}
+
+mountCursor();
 paintClocks();
 setInterval(paintClocks, 15_000);
 
