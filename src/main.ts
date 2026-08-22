@@ -221,7 +221,160 @@ function mountCursor() {
   document.addEventListener("pointerenter", () => gsap.to(dot, { opacity: 1, duration: 0.3 }));
 }
 
+// Cursor-following preview window for outbound links, after the reference's
+// `.mouse-pos-list-image`. Every off-site link gets one for free: the card
+// falls back to the destination's domain and the link's own text, and any link
+// that has a `data-preview` image uses that instead. Built in JS and parked on
+// <body> rather than written into each page, so it survives barba swaps and
+// there is nothing to re-mount on enter.
+type PreviewRefs = {
+  win: HTMLElement;
+  inner: HTMLElement;
+  media: HTMLElement;
+  domain: HTMLElement;
+  title: HTMLElement;
+  circle: HTMLElement;
+};
+
+const PREVIEW_SKIP = "[data-no-preview]";
+
+function isOutbound(link: HTMLAnchorElement) {
+  if (link.matches(PREVIEW_SKIP) || link.closest(PREVIEW_SKIP)) return false;
+  if (!/^https?:$/.test(link.protocol)) return false;
+  return link.host !== window.location.host;
+}
+
+function buildPreview(): PreviewRefs {
+  const win = document.createElement("div");
+  win.className = "link-preview";
+  win.setAttribute("aria-hidden", "true");
+  win.innerHTML = `
+    <div class="link-preview-inner overflow-hidden bg-black text-white">
+      <div
+        data-lp-media
+        class="hidden aspect-[4/3] w-full bg-black/40 bg-cover bg-center"
+      ></div>
+      <div data-lp-meta class="flex flex-col gap-2 p-5">
+        <p
+          data-lp-domain
+          class="font-sans text-[0.65rem] uppercase tracking-[0.22em] text-white/45"
+        ></p>
+        <p data-lp-title class="link-preview-title font-heading text-lg font-semibold leading-snug"></p>
+        <p class="mt-1 font-sans text-xs uppercase tracking-[0.18em] text-red">Open &#8599;</p>
+      </div>
+    </div>`;
+
+  const circle = document.createElement("div");
+  circle.className = "link-cursor bg-red";
+  circle.setAttribute("aria-hidden", "true");
+  circle.innerHTML = `<span class="flex h-full w-full items-center justify-center whitespace-nowrap font-sans text-sm text-white">View</span>`;
+
+  document.body.append(win, circle);
+
+  return {
+    win,
+    inner: win.querySelector<HTMLElement>(".link-preview-inner")!,
+    media: win.querySelector<HTMLElement>("[data-lp-media]")!,
+    domain: win.querySelector<HTMLElement>("[data-lp-domain]")!,
+    title: win.querySelector<HTMLElement>("[data-lp-title]")!,
+    circle,
+  };
+}
+
+function fillPreview(refs: PreviewRefs, link: HTMLAnchorElement) {
+  refs.domain.textContent = link.hostname.replace(/^www\./, "");
+
+  const label = link.dataset.previewTitle ?? link.textContent?.trim().replace(/\s+/g, " ") ?? "";
+  refs.title.textContent = label;
+  refs.title.classList.toggle("hidden", !label);
+
+  const image = link.dataset.preview;
+  refs.media.classList.toggle("hidden", !image);
+  if (image) refs.media.style.backgroundImage = `url("${image}")`;
+}
+
+function mountLinkPreview() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  const refs = buildPreview();
+  const lens = document.querySelector<HTMLElement>("[data-cursor]");
+  gsap.set([refs.win, refs.circle], { xPercent: -50, yPercent: -50 });
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let seen = false;
+  const win = { x: 0, y: 0 };
+  const circle = { x: 0, y: 0 };
+  let active: HTMLAnchorElement | null = null;
+
+  // Two trailing rates rather than one, so the window lags behind the circle
+  // and the pair strings out along the pointer's path. Framed against 60fps and
+  // scaled by deltaRatio, so the lag reads the same on a 120Hz display.
+  const chase = (self: { x: number; y: number }, rate: number, delta: number) => {
+    const factor = 1 - Math.pow(1 - rate, delta);
+    self.x += (pointerX - self.x) * factor;
+    self.y += (pointerY - self.y) * factor;
+  };
+
+  gsap.ticker.add(() => {
+    if (!seen) return;
+    const delta = gsap.ticker.deltaRatio(60);
+    chase(win, 0.14, delta);
+    chase(circle, 0.22, delta);
+    gsap.set(refs.win, { x: win.x, y: win.y });
+    gsap.set(refs.circle, { x: circle.x, y: circle.y });
+  });
+
+  window.addEventListener("pointermove", (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    if (seen) return;
+    // Start parked under the pointer instead of easing in from the corner.
+    seen = true;
+    win.x = circle.x = pointerX;
+    win.y = circle.y = pointerY;
+  });
+
+  const open = (link: HTMLAnchorElement) => {
+    const swapping = active !== null;
+    active = link;
+    fillPreview(refs, link);
+    refs.win.classList.add("is-active");
+    refs.circle.classList.add("is-active");
+    if (lens) gsap.to(lens, { opacity: 0, duration: 0.25 });
+    // Moving straight between two links never re-runs the width unfurl, so the
+    // swap gets its own small settle to show the card actually changed.
+    if (swapping)
+      gsap.fromTo(refs.inner, { scale: 0.94 }, { scale: 1, duration: 0.45, ease: "power3.out" });
+  };
+
+  const close = () => {
+    active = null;
+    refs.win.classList.remove("is-active");
+    refs.circle.classList.remove("is-active", "is-pressed");
+    if (lens) gsap.to(lens, { opacity: 1, duration: 0.25 });
+  };
+
+  // Delegated, so links added by a page swap are covered without rebinding.
+  document.addEventListener("pointerover", (event) => {
+    const link = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>("a[href]");
+    if (link && isOutbound(link)) {
+      if (link !== active) open(link);
+    } else if (active) {
+      close();
+    }
+  });
+
+  document.addEventListener("pointerdown", () => {
+    if (active) refs.circle.classList.add("is-pressed");
+  });
+  document.addEventListener("pointerup", () => refs.circle.classList.remove("is-pressed"));
+  window.addEventListener("blur", close);
+  barba.hooks.beforeLeave(() => close());
+}
+
 mountCursor();
+mountLinkPreview();
 paintClocks();
 setInterval(paintClocks, 15_000);
 
@@ -242,6 +395,15 @@ window.addEventListener("resize", () => {
   if (window.innerWidth >= 768) setMenu(false);
 });
 
+// Triggers are measured on the cold load, before webfonts have swapped in and
+// before the hero image has decoded — both of which resize the page underneath
+// them. Re-measuring once each has settled keeps the start positions honest.
+function settleTriggers() {
+  const refresh = () => ScrollTrigger.refresh();
+  window.addEventListener("load", refresh, { once: true });
+  document.fonts?.ready.then(refresh);
+}
+
 // Scroll reveals for anything below the hero. The hero's own intro runs off the
 // curtain timeline (`.once-in`), so these are kept on a separate hook.
 function mountReveals(container: HTMLElement) {
@@ -251,7 +413,12 @@ function mountReveals(container: HTMLElement) {
       opacity: 0,
       duration: 1.1,
       ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 88%", once: true },
+      // `clamp()` pins the start inside the scrollable range. Without it the
+      // last elements on a short page ask to be triggered at a scroll position
+      // past the document's maximum — the page can never scroll that far, the
+      // trigger never fires, and `from`'s opacity:0 leaves them invisible for
+      // good. Tall phone layouts hide the bug; wide desktop ones expose it.
+      scrollTrigger: { trigger: el, start: "clamp(top 88%)", once: true },
     });
   });
 }
@@ -283,6 +450,22 @@ function mountCover(container: HTMLElement) {
   });
 }
 
+// The home page flips the nav to its on-light colours off the cover panel.
+// Pages that open on a dark hero and then run light need the same flip without
+// a cover, so any element marked `data-nav-flip` can drive it.
+function mountNavFlip(container: HTMLElement) {
+  const section = container.querySelector<HTMLElement>("[data-nav-flip]");
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  if (!section || !nav) return;
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: () => `top ${nav.offsetHeight}px`,
+    onEnter: () => (nav.dataset.onLight = "true"),
+    onLeaveBack: () => (nav.dataset.onLight = "false"),
+  });
+}
+
 // Triggers are measured against the container being replaced, so they have to go
 // before the next one is mounted or every start/end position is stale.
 function clearReveals() {
@@ -298,8 +481,10 @@ barba.init({
         // the drop is never visible: the curtain is already over it.
         gsap.set(".loading-screen", { top: "0%" });
         armOnceIn(next.container, "load");
-        mountReveals(next.container);
         mountCover(next.container);
+        mountNavFlip(next.container);
+        mountReveals(next.container);
+        settleTriggers();
         playGreeting(next.container);
       },
       async leave({ current }) {
@@ -310,8 +495,9 @@ barba.init({
       beforeEnter({ next }) {
         setLoadingWord(next.namespace);
         armOnceIn(next.container, "transition");
-        mountReveals(next.container);
         mountCover(next.container);
+        mountNavFlip(next.container);
+        mountReveals(next.container);
       },
       async enter({ next }) {
         next.container.style.display = "";

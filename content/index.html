@@ -7,11 +7,11 @@
     <title>Content · omkarlohar.me</title>
     <meta
       name="description"
-      content="Videos, writing, and whatever else I have been publishing lately."
+      content="Gaming, vlogs, quizzes, short films and setup reels — across two YouTube channels and Instagram."
     />
     <meta name="author" content="Omkar Lohar" />
     <link rel="canonical" href="https://omkarlohar.me/content/" />
-    <meta name="theme-color" content="#161617" />
+    <meta name="theme-color" content="#FAFAFC" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -26,7 +26,7 @@
     <meta property="og:title" content="Content · omkarlohar.me" />
     <meta
       property="og:description"
-      content="Videos, writing, and whatever else I have been publishing lately."
+      content="Gaming, vlogs, quizzes, short films and setup reels — across two YouTube channels and Instagram."
     />
     <meta property="og:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -39,7 +39,7 @@
     <meta name="twitter:title" content="Content · omkarlohar.me" />
     <meta
       name="twitter:description"
-      content="Videos, writing, and whatever else I have been publishing lately."
+      content="Gaming, vlogs, quizzes, short films and setup reels — across two YouTube channels and Instagram."
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
@@ -122,15 +122,486 @@
         </div>
       </div>
       <div data-barba="container" data-barba-namespace="content" class="relative w-full">
-        <nav class="flex gap-6 p-6 font-sans text-sm text-black">
-          <a href="/">Home</a>
-          <a href="/setup/">Setup</a>
-          <a href="/content/">Content</a>
-          <a href="/gaming/">Gaming</a>
-          <a href="/projects/">Projects</a>
+        <!-- The page is light throughout, so the nav carries its own colour
+             instead of the scroll-driven flip the darker heroes need. -->
+        <nav
+          data-nav
+          class="fixed left-0 top-0 z-[400] flex w-full items-center justify-between border-b border-black/5 bg-white/85 px-4 py-5 font-sans text-lg text-black backdrop-blur-md sm:px-6 sm:text-xl"
+        >
+          <div class="flex items-center gap-6 sm:gap-12">
+            <a
+              href="/"
+              class="whitespace-nowrap font-heading font-semibold transition-opacity hover:opacity-60"
+              >&copy; Omkar Lohar</a
+            >
+            <p class="hidden whitespace-nowrap md:block">
+              Pune: <span data-local-time>--:-- --</span>
+            </p>
+          </div>
+
+          <ul class="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex lg:gap-12">
+            <li>
+              <a
+                href="/content/"
+                class="underline decoration-red decoration-2 underline-offset-[6px]"
+                >Content</a
+              >
+            </li>
+            <li><a href="/gaming/" class="transition-opacity hover:opacity-60">Gaming</a></li>
+            <li><a href="/projects/" class="transition-opacity hover:opacity-60">Projects</a></li>
+          </ul>
+
+          <a href="/setup/" class="hidden transition-opacity hover:opacity-60 md:block">Setup</a>
+
+          <button
+            type="button"
+            data-menu-toggle
+            class="transition-opacity hover:opacity-60 md:hidden"
+          >
+            Menu
+          </button>
         </nav>
+
+        <!-- Type-led hero. The other two pages open on a photograph; this one
+             has no thumbnail worth faking, so it opens on the words instead. -->
+        <!-- Type-led hero. The other two pages open on a photograph; this one
+             has no thumbnail worth faking, so it opens on the words instead —
+             white like the panel that covers it — the cover's shadow is what
+             separates the two surfaces. The title block is centred in the space
+             left over above the ticker rather than pinned to the top, so short
+             viewports do not leave a hole in the middle. -->
+        <header
+          class="sticky top-0 isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-white text-black"
+        >
+          <div
+            class="mx-auto flex w-full max-w-[110rem] flex-1 flex-col justify-center gap-7 px-4 pb-16 pt-32 sm:gap-9 sm:px-6 sm:pt-40"
+          >
+            <p class="once-in">
+              <span
+                class="inline-block bg-red py-1.5 pl-3 pr-2 font-sans text-xs uppercase tracking-[0.3em] text-white sm:text-sm"
+                >Content &mdash; 002</span
+              >
+            </p>
+            <h1
+              class="once-in font-heading text-[clamp(2.75rem,9vw,8.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
+            >
+              Two channels.<br />
+              <span class="text-red">Five formats.</span><br />
+              One desk.
+            </h1>
+            <p class="once-in max-w-[38ch] font-sans text-lg leading-snug text-black/70 sm:text-xl">
+              I film what I&rsquo;m already doing &mdash; playing, building the desk, messing about
+              with friends &mdash; and cut it into something worth watching.
+            </p>
+          </div>
+
+          <div class="w-full">
+            <!-- The ticker doubles as the format list: it says what I make
+                 without spending a headline on it. -->
+            <div class="overflow-hidden border-y border-black/15 py-4">
+              <div class="flex w-max animate-marquee motion-reduce:animate-none">
+                <ul
+                  aria-hidden="true"
+                  class="flex shrink-0 items-center gap-8 pr-8 font-heading text-2xl font-semibold uppercase tracking-[-0.01em] sm:gap-12 sm:pr-12 sm:text-4xl"
+                >
+                  <li>Gaming</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Vlogs</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Quiz</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Short films</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Setup reels</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Live streams</li>
+                  <li class="text-red">&bull;</li>
+                </ul>
+                <ul
+                  aria-hidden="true"
+                  class="flex shrink-0 items-center gap-8 pr-8 font-heading text-2xl font-semibold uppercase tracking-[-0.01em] sm:gap-12 sm:pr-12 sm:text-4xl"
+                >
+                  <li>Gaming</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Vlogs</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Quiz</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Short films</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Setup reels</li>
+                  <li class="text-red">&bull;</li>
+                  <li>Live streams</li>
+                  <li class="text-red">&bull;</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mx-auto w-full max-w-[110rem] px-4 py-7 sm:px-6 sm:py-8">
+              <dl class="flex flex-wrap gap-x-10 gap-y-4 font-sans text-base sm:text-lg">
+                <div>
+                  <dt class="text-black/40">Best reel</dt>
+                  <dd class="text-black">150K views</dd>
+                </div>
+                <div>
+                  <dt class="text-black/40">Likes</dt>
+                  <dd class="text-black">10K</dd>
+                </div>
+                <div>
+                  <dt class="text-black/40">Channels</dt>
+                  <dd class="text-red">2</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </header>
+
+        <!-- Rides up over the pinned hero as a cover, the same way home's
+             white panel does. `--cut` drives the diagonal leading edge and is
+             scrubbed to 0 over the travel, so the cross-cut exists only while
+             the panel is moving and settles flat once it has covered. -->
+        <div class="relative [filter:drop-shadow(0_-18px_40px_rgba(0,0,0,0.20))]">
+          <main
+            data-cover
+            class="relative bg-white pt-[8svh] text-black [--cut:7vw] [clip-path:polygon(0_var(--cut),100%_0,100%_100%,0_100%)]"
+          >
+            <div data-cover-inner>
+              <!-- 01 — the two reels worth pointing at, as phone-shaped frames -->
+              <section>
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">01</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        Two that went further than the rest.
+                      </h2>
+
+                      <div class="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8">
+                        <a
+                          data-reveal
+                          href="https://www.instagram.com/reel/DaHvfuQtTPB/"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          data-preview-title="The reel that hit 150K views"
+                          class="group flex aspect-[9/16] max-h-[34rem] flex-col justify-between bg-black p-6 text-white transition-transform duration-500 ease-[cubic-bezier(0.34,1,0.64,1)] hover:-translate-y-1.5 sm:p-7"
+                        >
+                          <div class="flex items-start justify-between gap-4">
+                            <span
+                              class="font-sans text-xs uppercase tracking-[0.22em] text-white/50 sm:text-sm"
+                              >Instagram &middot; Reel</span
+                            >
+                            <span
+                              class="font-sans text-sm text-white/40 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </div>
+                          <div>
+                            <p class="font-heading text-6xl font-black leading-none sm:text-7xl">
+                              150<span class="text-red">K</span>
+                            </p>
+                            <p class="mt-3 font-sans text-base text-white/60">views</p>
+                            <p
+                              class="mt-6 border-t border-white/15 pt-5 font-sans text-base leading-relaxed text-white/70"
+                            >
+                              10K likes. The one that got away from me &mdash; still the biggest
+                              thing I&rsquo;ve posted.
+                            </p>
+                          </div>
+                        </a>
+
+                        <a
+                          data-reveal
+                          href="https://www.instagram.com/reel/DVdnl2oDaDz/"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          data-preview-title="The reel Logitech India commented on"
+                          class="group flex aspect-[9/16] max-h-[34rem] flex-col justify-between border border-black/15 bg-white p-6 transition-transform duration-500 ease-[cubic-bezier(0.34,1,0.64,1)] hover:-translate-y-1.5 sm:p-7"
+                        >
+                          <div class="flex items-start justify-between gap-4">
+                            <span
+                              class="font-sans text-xs uppercase tracking-[0.22em] text-black/45 sm:text-sm"
+                              >Instagram &middot; Reel</span
+                            >
+                            <span
+                              class="font-sans text-sm text-black/35 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </div>
+                          <div>
+                            <!-- Sized against the card, not the viewport: `vw` here
+                             scaled the type past a column that is only ever a
+                             half-width fraction of it, so "commented." ran out
+                             of the frame. -->
+                            <p
+                              class="font-heading text-[clamp(1.75rem,3vw,2.25rem)] font-black leading-[1] [overflow-wrap:anywhere]"
+                            >
+                              Logitech India<br /><span class="text-red">commented.</span>
+                            </p>
+                            <p
+                              class="mt-6 border-t border-black/15 pt-5 font-sans text-base leading-relaxed text-black/65"
+                            >
+                              A brand I&rsquo;d only ever bought from turning up in the comments is
+                              a strange kind of milestone.
+                            </p>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 02 — the channels -->
+              <section class="border-t border-black/10 bg-black/[0.03]">
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">02</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        Where it goes
+                      </h2>
+                      <p
+                        data-reveal
+                        class="mt-5 max-w-2xl font-sans text-base leading-relaxed text-black/55 lg:text-lg"
+                      >
+                        Two channels, kept separate on purpose. One is the controller, the other is
+                        everything else.
+                      </p>
+
+                      <div class="bg-black/12 mt-12 grid gap-px sm:grid-cols-2">
+                        <a
+                          data-reveal
+                          href="https://youtube.com/@omkarplaysonps"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          data-preview-title="@omkarplaysonps on YouTube"
+                          class="group flex flex-col justify-between gap-10 bg-white p-8 transition-colors hover:bg-black/[0.03] sm:p-10"
+                        >
+                          <div>
+                            <div class="flex items-start justify-between gap-4">
+                              <span
+                                class="font-sans text-xs uppercase tracking-[0.22em] text-red sm:text-sm"
+                                >YouTube &middot; Gaming</span
+                              >
+                              <span
+                                class="font-sans text-sm text-black/35 transition-all group-hover:translate-x-1 group-hover:text-red"
+                                >&#8599;</span
+                              >
+                            </div>
+                            <p
+                              class="mt-6 break-words font-heading text-[clamp(1.5rem,3.2vw,2.25rem)] font-black leading-[1.05] tracking-[-0.02em]"
+                            >
+                              @omkarplaysonps
+                            </p>
+                          </div>
+                          <ul class="flex flex-wrap gap-2 font-sans text-sm">
+                            <li class="border border-black/15 px-3 py-1 text-black/60">Gameplay</li>
+                            <li class="border border-black/15 px-3 py-1 text-black/60">
+                              Live streams
+                            </li>
+                            <li class="border border-black/15 px-3 py-1 text-black/60">
+                              Setup reels
+                            </li>
+                          </ul>
+                        </a>
+
+                        <a
+                          data-reveal
+                          href="https://youtube.com/@omkarlhr9595"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          data-preview-title="@omkarlhr9595 on YouTube"
+                          class="group flex flex-col justify-between gap-10 bg-white p-8 transition-colors hover:bg-black/[0.03] sm:p-10"
+                        >
+                          <div>
+                            <div class="flex items-start justify-between gap-4">
+                              <span
+                                class="font-sans text-xs uppercase tracking-[0.22em] text-red sm:text-sm"
+                                >YouTube &middot; Main</span
+                              >
+                              <span
+                                class="font-sans text-sm text-black/35 transition-all group-hover:translate-x-1 group-hover:text-red"
+                                >&#8599;</span
+                              >
+                            </div>
+                            <p
+                              class="mt-6 break-words font-heading text-[clamp(1.5rem,3.2vw,2.25rem)] font-black leading-[1.05] tracking-[-0.02em]"
+                            >
+                              @omkarlhr9595
+                            </p>
+                          </div>
+                          <ul class="flex flex-wrap gap-2 font-sans text-sm">
+                            <li class="border border-black/15 px-3 py-1 text-black/60">Vlogs</li>
+                            <li class="border border-black/15 px-3 py-1 text-black/60">
+                              Short films
+                            </li>
+                            <li class="border border-black/15 px-3 py-1 text-black/60">Quiz</li>
+                          </ul>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 03 — the formats, spelled out -->
+              <section class="border-t border-black/10">
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">03</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        What I make
+                      </h2>
+
+                      <dl class="border-black/12 mt-12 border-t">
+                        <div
+                          data-reveal
+                          class="border-black/12 flex flex-col gap-2 border-b py-7 sm:flex-row sm:items-baseline sm:gap-10"
+                        >
+                          <dt
+                            class="w-full shrink-0 font-heading text-xl font-semibold sm:w-56 sm:text-2xl"
+                          >
+                            Gaming
+                          </dt>
+                          <dd class="font-sans text-base leading-relaxed text-black/65 lg:text-lg">
+                            Playthroughs and live streams from the PS5 &mdash; mostly horror, mostly
+                            Resident Evil.
+                          </dd>
+                        </div>
+                        <div
+                          data-reveal
+                          class="border-black/12 flex flex-col gap-2 border-b py-7 sm:flex-row sm:items-baseline sm:gap-10"
+                        >
+                          <dt
+                            class="w-full shrink-0 font-heading text-xl font-semibold sm:w-56 sm:text-2xl"
+                          >
+                            Setup reels
+                          </dt>
+                          <dd class="font-sans text-base leading-relaxed text-black/65 lg:text-lg">
+                            The desk, one piece at a time. The format that reaches the most people
+                            by far.
+                          </dd>
+                        </div>
+                        <div
+                          data-reveal
+                          class="border-black/12 flex flex-col gap-2 border-b py-7 sm:flex-row sm:items-baseline sm:gap-10"
+                        >
+                          <dt
+                            class="w-full shrink-0 font-heading text-xl font-semibold sm:w-56 sm:text-2xl"
+                          >
+                            Vlogs
+                          </dt>
+                          <dd class="font-sans text-base leading-relaxed text-black/65 lg:text-lg">
+                            Days that were going to happen anyway, with a camera along for them.
+                          </dd>
+                        </div>
+                        <div
+                          data-reveal
+                          class="border-black/12 flex flex-col gap-2 border-b py-7 sm:flex-row sm:items-baseline sm:gap-10"
+                        >
+                          <dt
+                            class="w-full shrink-0 font-heading text-xl font-semibold sm:w-56 sm:text-2xl"
+                          >
+                            Short films
+                          </dt>
+                          <dd class="font-sans text-base leading-relaxed text-black/65 lg:text-lg">
+                            Written, shot and cut with friends. The slowest to make and the most
+                            fun.
+                          </dd>
+                        </div>
+                        <div
+                          data-reveal
+                          class="border-black/12 flex flex-col gap-2 border-b py-7 sm:flex-row sm:items-baseline sm:gap-10"
+                        >
+                          <dt
+                            class="w-full shrink-0 font-heading text-xl font-semibold sm:w-56 sm:text-2xl"
+                          >
+                            Quiz
+                          </dt>
+                          <dd class="font-sans text-base leading-relaxed text-black/65 lg:text-lg">
+                            Questions put to whoever is nearby, edited down to the good answers.
+                          </dd>
+                        </div>
+                      </dl>
+
+                      <div
+                        data-reveal
+                        class="mt-16 flex flex-wrap gap-x-8 gap-y-3 font-sans text-lg lg:text-xl"
+                      >
+                        <a
+                          href="/setup/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >The desk in the reels &rarr;</a
+                        >
+                        <a
+                          href="/gaming/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >What I&rsquo;m playing &rarr;</a
+                        >
+                        <a
+                          href="/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >About me &rarr;</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </main>
+        </div>
+        <div
+          data-menu-backdrop
+          data-open="false"
+          class="pointer-events-none fixed inset-0 z-[500] bg-black/60 opacity-0 transition-opacity duration-500 data-[open=true]:pointer-events-auto data-[open=true]:opacity-100 md:hidden"
+        ></div>
+        <aside
+          data-menu-panel
+          data-open="false"
+          class="fixed inset-y-0 right-0 z-[501] flex w-[78vw] max-w-xs translate-x-full flex-col bg-black px-6 py-5 font-sans text-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] data-[open=true]:translate-x-0 md:hidden"
+        >
+          <button
+            type="button"
+            data-menu-close
+            class="self-end text-lg transition-opacity hover:opacity-60"
+          >
+            Close
+          </button>
+          <ul class="mt-10 flex flex-col gap-6 text-3xl">
+            <li><a href="/" data-menu-close>Home</a></li>
+            <li><a href="/setup/" data-menu-close>Setup</a></li>
+            <li><a href="/content/" data-menu-close>Content</a></li>
+            <li><a href="/gaming/" data-menu-close>Gaming</a></li>
+            <li><a href="/projects/" data-menu-close>Projects</a></li>
+          </ul>
+          <p class="mt-auto text-lg opacity-70">Pune: <span data-local-time>--:-- --</span></p>
+        </aside>
       </div>
     </div>
+    <!-- Inverting lens that trails the pointer. It sits outside the barba
+         container so it survives page swaps, and above everything except the
+         loading curtain. `backdrop-filter` inverts whatever it passes over. -->
+    <div
+      data-cursor
+      class="pointer-events-none fixed left-0 top-0 z-[600] h-16 w-16 rounded-full opacity-0 [backdrop-filter:invert(1)] max-[1024px]:hidden"
+    ></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

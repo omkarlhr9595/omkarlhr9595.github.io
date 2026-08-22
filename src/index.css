@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,4 +28,76 @@ button,
   cursor:
     url("/assets/cursor-ps5.png") 32 13,
     pointer;
+}
+
+/* Cursor-following preview window for outbound links, after the reference's
+   `.mouse-pos-list-image`: the panel unfurls from zero width so the card is
+   clipped open horizontally rather than scaled or faded. The inner sits at the
+   full width throughout, so its contents never reflow mid-animation. */
+.link-preview {
+  --lp-w: clamp(13rem, 21vw, 19rem);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 590;
+  width: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: width 0.4s cubic-bezier(0.36, 0, 0.66, 0);
+  will-change: transform, width;
+}
+
+.link-preview.is-active {
+  width: var(--lp-w);
+  transition: width 0.45s cubic-bezier(0.34, 1, 0.64, 1);
+}
+
+.link-preview-inner {
+  width: var(--lp-w);
+  will-change: transform;
+}
+
+/* The circle and its label are separate layers trailing at their own rates, so
+   they lag the window slightly the way the reference's do. */
+.link-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 595;
+  width: 0;
+  height: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    width 0.4s cubic-bezier(0.36, 0, 0.66, 0),
+    height 0.4s cubic-bezier(0.36, 0, 0.66, 0);
+  will-change: transform, width, height;
+}
+
+.link-cursor.is-active {
+  width: clamp(3.5rem, 5.5vw, 4.75rem);
+  height: clamp(3.5rem, 5.5vw, 4.75rem);
+  transition:
+    width 0.45s cubic-bezier(0.34, 1, 0.64, 1),
+    height 0.45s cubic-bezier(0.34, 1, 0.64, 1);
+}
+
+.link-cursor.is-pressed {
+  width: calc(clamp(3.5rem, 5.5vw, 4.75rem) * 0.86);
+  height: calc(clamp(3.5rem, 5.5vw, 4.75rem) * 0.86);
+}
+
+.link-preview-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .link-preview,
+  .link-cursor {
+    display: none;
+  }
 }

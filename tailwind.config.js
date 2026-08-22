@@ -20,7 +20,6 @@ export default {
           "Arial",
           "sans-serif",
         ],
-        body: ["Pixelify Sans", "sans-serif"],
         heading: [
           "Montserrat",
           "-apple-system",
@@ -45,6 +44,18 @@ export default {
           "Arial",
           "sans-serif",
         ],
+      },
+      // The content page's format ticker: the track holds two identical copies
+      // of the list and travels exactly half its width, so the loop point lands
+      // on a seam already showing the same text.
+      keyframes: {
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 32s linear infinite",
       },
       colors: {
         black: "#161617",

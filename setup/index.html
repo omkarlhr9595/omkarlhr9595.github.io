@@ -7,11 +7,11 @@
     <title>Setup · omkarlohar.me</title>
     <meta
       name="description"
-      content="The desk, the peripherals, and everything that lives on the mat."
+      content="The desk, the gear on it, and the email that started the whole thing."
     />
     <meta name="author" content="Omkar Lohar" />
     <link rel="canonical" href="https://omkarlohar.me/setup/" />
-    <meta name="theme-color" content="#161617" />
+    <meta name="theme-color" content="#FAFAFC" />
 
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -26,7 +26,7 @@
     <meta property="og:title" content="Setup · omkarlohar.me" />
     <meta
       property="og:description"
-      content="The desk, the peripherals, and everything that lives on the mat."
+      content="The desk, the gear on it, and the email that started the whole thing."
     />
     <meta property="og:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -39,7 +39,7 @@
     <meta name="twitter:title" content="Setup · omkarlohar.me" />
     <meta
       name="twitter:description"
-      content="The desk, the peripherals, and everything that lives on the mat."
+      content="The desk, the gear on it, and the email that started the whole thing."
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
@@ -122,15 +122,813 @@
         </div>
       </div>
       <div data-barba="container" data-barba-namespace="setup" class="relative w-full">
-        <nav class="flex gap-6 p-6 font-sans text-sm text-black">
-          <a href="/">Home</a>
-          <a href="/setup/">Setup</a>
-          <a href="/content/">Content</a>
-          <a href="/gaming/">Gaming</a>
-          <a href="/projects/">Projects</a>
+        <nav
+          data-nav
+          data-on-light="false"
+          class="fixed left-0 top-0 z-[400] flex w-full items-center justify-between bg-transparent px-4 py-5 font-sans text-lg text-white transition-[color,background-color,box-shadow] duration-300 data-[on-light=true]:bg-white data-[on-light=true]:text-black data-[on-light=true]:shadow-[0_10px_30px_rgba(0,0,0,0.12)] sm:px-6 sm:text-xl"
+        >
+          <div class="flex items-center gap-6 sm:gap-12">
+            <a
+              href="/"
+              class="whitespace-nowrap font-heading font-semibold transition-opacity hover:opacity-60"
+              >&copy; Omkar Lohar</a
+            >
+            <p class="hidden whitespace-nowrap md:block">
+              Pune: <span data-local-time>--:-- --</span>
+            </p>
+          </div>
+
+          <ul class="absolute left-1/2 hidden -translate-x-1/2 gap-8 md:flex lg:gap-12">
+            <li><a href="/content/" class="transition-opacity hover:opacity-60">Content</a></li>
+            <li><a href="/gaming/" class="transition-opacity hover:opacity-60">Gaming</a></li>
+            <li><a href="/projects/" class="transition-opacity hover:opacity-60">Projects</a></li>
+          </ul>
+
+          <a
+            href="/setup/"
+            class="hidden underline decoration-red decoration-2 underline-offset-[6px] md:block"
+            >Setup</a
+          >
+
+          <button
+            type="button"
+            data-menu-toggle
+            class="transition-opacity hover:opacity-60 md:hidden"
+          >
+            Menu
+          </button>
         </nav>
+        <!-- Art-directed hero: the 16:9 frame on laptops and monitors, the 9:16
+             one on phones, so the desk fills either shape without cropping the
+             gear out of it. -->
+        <header
+          class="sticky top-0 isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-black"
+        >
+          <picture class="absolute inset-0">
+            <source
+              media="(max-width: 640px)"
+              type="image/webp"
+              srcset="
+                /assets/setup_2-720.webp   720w,
+                /assets/setup_2-1080.webp 1080w,
+                /assets/setup_2-1440.webp 1440w
+              "
+              sizes="100vw"
+            />
+            <img
+              src="/assets/setup_1-1920.webp"
+              srcset="
+                /assets/setup_1-1280.webp 1280w,
+                /assets/setup_1-1920.webp 1920w,
+                /assets/setup_1-2560.webp 2560w
+              "
+              sizes="100vw"
+              width="1920"
+              height="1080"
+              alt="Omkar Lohar's desk setup — monitor, Aula F75 keyboard and PlayStation 5"
+              draggable="false"
+              class="h-full w-full select-none object-cover"
+            />
+          </picture>
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/65"
+          ></div>
+
+          <div class="relative mt-auto w-full px-4 pb-10 sm:px-6 sm:pb-14">
+            <p class="once-in">
+              <!-- Red type on a photograph never holds up; the accent moves to
+                   the fill so the label reads against whatever is behind it. -->
+              <span
+                class="inline-block bg-red py-1.5 pl-3 pr-2 font-sans text-xs uppercase tracking-[0.3em] text-white sm:text-sm"
+                >Setup &mdash; 001</span
+              >
+            </p>
+            <h1
+              class="once-in mt-5 font-heading text-[clamp(2.75rem,13vw,11rem)] font-black uppercase leading-[0.86] tracking-[-0.04em] text-white"
+            >
+              The Desk
+            </h1>
+            <div
+              class="once-in mt-8 flex flex-col gap-6 border-t border-white/20 pt-6 font-sans text-white/70 sm:flex-row sm:items-start sm:justify-between sm:gap-12"
+            >
+              <p class="max-w-[34ch] text-lg leading-snug sm:text-xl">
+                It started with one keyboard I couldn&rsquo;t buy in India. Everything else
+                followed.
+              </p>
+              <dl class="flex flex-wrap gap-x-10 gap-y-4 font-sans text-base sm:text-lg">
+                <div>
+                  <dt class="text-white/40">Since</dt>
+                  <dd class="text-white">Jun 2024</dd>
+                </div>
+                <div>
+                  <dt class="text-white/40">Items</dt>
+                  <dd class="text-white">12</dd>
+                </div>
+                <div>
+                  <dt class="text-white/40">Still missing</dt>
+                  <dd class="text-red">1 PC</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </header>
+
+        <!-- Rides up over the pinned hero as a cover, the same way home's
+             white panel does. `--cut` drives the diagonal leading edge and is
+             scrubbed to 0 over the travel, so the cross-cut exists only while
+             the panel is moving and settles flat once it has covered. -->
+        <div class="relative [filter:drop-shadow(0_-24px_50px_rgba(0,0,0,0.55))]">
+          <main
+            data-cover
+            class="relative bg-white pt-[8svh] text-black [--cut:7vw] [clip-path:polygon(0_var(--cut),100%_0,100%_100%,0_100%)]"
+          >
+            <div data-cover-inner>
+              <!-- 01 — how it started -->
+              <section>
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">01</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        A friend&rsquo;s keyboard in 2021, a YouTube review in 2024, and an email
+                        nobody expected to be answered.
+                      </h2>
+
+                      <div class="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-14">
+                        <div
+                          class="space-y-6 font-sans text-base leading-relaxed text-black/70 lg:text-lg"
+                        >
+                          <p data-reveal>
+                            I got my first job at Azodha in 2024, and the first thing I wanted was a
+                            mechanical keyboard. That itch had been there since 2021, when my friend
+                            <a
+                              href="https://www.instagram.com/anuragdandge5132/"
+                              target="_blank"
+                              rel="noreferrer noopener"
+                              data-preview-title="Anurag Dandge"
+                              class="text-black underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                              >Anurag</a
+                            >
+                            picked up a Cosmic Byte CB-GK-16 Firefly on a gig we did together.
+                          </p>
+                          <p data-reveal>
+                            I was deep in Kreo HIVE reviews when
+                            <a
+                              href="https://youtu.be/DCMmW8RHbYw?t=351"
+                              target="_blank"
+                              rel="noreferrer noopener"
+                              data-preview-title="Hardware Mana — AULA F75 comparison"
+                              class="text-black underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                              >Hardware Mana</a
+                            >
+                            put the typing sound next to an AULA F75. That was it. One problem: the
+                            F75 wasn&rsquo;t sold in India yet.
+                          </p>
+                        </div>
+                        <div
+                          class="space-y-6 font-sans text-base leading-relaxed text-black/70 lg:text-lg"
+                        >
+                          <p data-reveal>
+                            So I emailed AULA India and asked. They replied in five minutes with a
+                            launch date &mdash; 20th June 2024 &mdash; and later a PDF price list.
+                            &#8377;6,999.
+                          </p>
+                          <p data-reveal>
+                            I ordered it the week it launched, and the rest of the desk grew around
+                            it: monitor, arm, light, speakers, mic, and eventually a PS5. Two years
+                            later it&rsquo;s a complete setup. Just a PC left &mdash; and RAM prices
+                            keep climbing.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 02 — the thread that started it, shown as the thread -->
+              <section class="border-t border-black/10 bg-black/[0.03]">
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">02</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        The email
+                      </h2>
+                      <p
+                        data-reveal
+                        class="mt-5 max-w-2xl font-sans text-base leading-relaxed text-black/55 lg:text-lg"
+                      >
+                        Six messages over two days in June 2024. I still have the attachment.
+                      </p>
+
+                      <div
+                        data-reveal
+                        class="mt-12 max-w-3xl overflow-hidden border border-black/15 bg-white"
+                      >
+                        <div
+                          class="border-black/12 flex items-center justify-between gap-4 border-b px-5 py-4"
+                        >
+                          <div class="flex items-center gap-1.5">
+                            <span class="h-2.5 w-2.5 rounded-full bg-red"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-black/15"></span>
+                            <span class="h-2.5 w-2.5 rounded-full bg-black/15"></span>
+                          </div>
+                          <p class="font-sans text-xs text-black/40 sm:text-sm">
+                            6 messages &middot; Jun 5&ndash;6, 2024
+                          </p>
+                        </div>
+
+                        <div class="px-5 py-7 sm:px-8 sm:py-9">
+                          <h3 class="font-heading text-lg font-semibold sm:text-xl">
+                            AULA F75 &mdash; availability in India
+                          </h3>
+
+                          <ol class="mt-9 space-y-8">
+                            <li class="border-l-2 border-red pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  Omkar Lohar
+                                  <span class="ml-1 font-sans text-xs font-normal text-black/40"
+                                    >omkarlohar91@gmail.com</span
+                                  >
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 5, 12:39 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                I recently watched a review by Hardware Mana on YouTube about the
+                                AULA F75 mechanical keyboard and was highly impressed. However, I
+                                noticed it is currently not available in India. Could you please
+                                tell me when it will be available for purchase here?
+                              </p>
+                            </li>
+
+                            <li class="border-l-2 border-black/20 pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  Aula Support
+                                  <span class="ml-1 font-sans text-xs font-normal text-black/40"
+                                    >aulacustomercare@gmail.com</span
+                                  >
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 5, 12:44 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                Hi, thanks for contacting Aula India. F75 will be available from
+                                20th June in India.
+                              </p>
+                              <p class="mt-3 font-sans text-xs text-red">Replied in 5 minutes</p>
+                            </li>
+
+                            <li class="border-l-2 border-red pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  Omkar Lohar
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 5, 12:49 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                That&rsquo;s great, thank you very much. Can I get information about
+                                its pricing?
+                              </p>
+                            </li>
+
+                            <li class="border-l-2 border-red pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  Omkar Lohar
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 5, 8:57 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                Could you please provide me with the pricing details? Additionally,
+                                if there are any special offers or discounts available at the time
+                                of release, I would appreciate that information as well.
+                              </p>
+                            </li>
+
+                            <li class="border-l-2 border-black/20 pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  AULA INDIA
+                                  <span class="ml-1 font-sans text-xs font-normal text-black/40"
+                                    >info@aulaindia.com</span
+                                  >
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 6, 8:42 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                PFA the price list for your reference. You may place your order by
+                                dropping mail to us after 20th June.
+                              </p>
+                              <a
+                                href="/assets/aula-f75-price-list.pdf"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                class="mt-4 flex max-w-sm items-center gap-3 border border-black/15 px-4 py-3 transition-colors hover:border-red/60 hover:bg-black/[0.03]"
+                              >
+                                <span
+                                  class="grid h-9 w-9 shrink-0 place-items-center border border-black/20 font-sans text-[0.6rem] text-black/60"
+                                  >PDF</span
+                                >
+                                <span class="min-w-0">
+                                  <span class="block truncate font-sans text-sm text-black"
+                                    >AULA KEYBOARD PRICE LIST F75 F87.pdf</span
+                                  >
+                                  <span class="block font-sans text-xs text-black/40">109 KB</span>
+                                </span>
+                              </a>
+                            </li>
+
+                            <li class="border-l-2 border-red pl-5">
+                              <div
+                                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                              >
+                                <p class="font-heading text-sm font-semibold sm:text-base">
+                                  Omkar Lohar
+                                </p>
+                                <p class="font-sans text-xs text-black/40">Jun 6, 9:57 PM</p>
+                              </div>
+                              <p
+                                class="mt-3 font-sans text-sm leading-relaxed text-black/65 sm:text-base"
+                              >
+                                Thanks a lot for sharing.
+                              </p>
+                            </li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 03 — the inventory -->
+              <section class="border-t border-black/10">
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">03</p>
+                    <div>
+                      <div
+                        data-reveal
+                        class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2"
+                      >
+                        <h2
+                          class="font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                        >
+                          What&rsquo;s on it
+                        </h2>
+                        <p class="font-sans text-sm text-black/40 sm:text-base">20+ items</p>
+                      </div>
+
+                      <ul class="mt-12 border-t border-black/10">
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/00uERaEn"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview="/assets/setup_1-1280.webp"
+                            data-preview-title="The Sleep Company AeroPlus standing desk"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >01</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Desk</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >The Sleep Company AeroPlus Electric Height Adjustable Desk</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/0gFphM7C"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title='BenQ GW2790QT 27" coding monitor'
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >02</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Monitor</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >BenQ GW2790QT Coding Monitor &middot; 27&Prime;</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/03AX6kXe"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="Jin Office single monitor gas spring arm"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >03</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Monitor arm</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Jin Office Single Monitor Gas Spring Arm</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://www.ikea.com/in/en/p/lagergang-led-lamp-for-screen-dimmable-turquoise-00542427/"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="IKEA LAGERG&Aring;NG screen light"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >04</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Monitor light</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >IKEA LAGERG&Aring;NG LED, dimmable
+                                <span class="text-black/35">&middot; 005.424.27</span></span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://aulaindia.com/product/aula-f75-75-wireless-trio-mode-mechanical-gaming-keyboard-with-knob-iceblue-reaper-switch-f75iur/"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="AULA F75 &middot; Iceblue Reaper switches"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-red sm:w-14">05</span>
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Keyboard &middot; the one that started it</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >AULA F75 Wireless Trio-Mode with knob, Iceblue Reaper
+                                switches</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/03bSRBf0"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="Razer DeathAdder V2 X HyperSpeed"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >06</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Mouse</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Razer DeathAdder V2 X HyperSpeed</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <div
+                            class="flex items-start gap-4 border-b border-black/10 py-6 sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >07</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Console</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Sony PlayStation&reg;5 &middot; Disc Edition</span
+                              >
+                            </span>
+                            <a
+                              href="/gaming/"
+                              class="shrink-0 self-center whitespace-nowrap font-sans text-xs uppercase tracking-[0.18em] text-black/40 underline decoration-black/20 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                              >Games &rarr;</a
+                            >
+                          </div>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/04vL461O"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="DualSense Wireless Controller, White"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >08</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Controllers &middot; &times;4</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Sony DualSense Wireless Controller, White</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/08zma75N"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="Edifier MR4 studio monitors"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >09</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Speakers</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Edifier MR4 Studio Monitors</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/0ijlQapn"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="HyperX SoloCast USB condenser mic"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >10</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Microphone</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >HyperX SoloCast USB Condenser</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/0215Ve7E"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="Kreo Slab video light"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >11</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Key light</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Kreo Slab Video Light</span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                        <li data-reveal>
+                          <a
+                            href="https://amzn.in/d/0i5mUH15"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            data-preview-title="Elgato Stream Deck +, White"
+                            class="group flex items-start gap-4 border-b border-black/10 py-6 transition-colors hover:bg-black/[0.03] sm:gap-6"
+                          >
+                            <span class="w-8 shrink-0 font-sans text-sm text-black/30 sm:w-14"
+                              >12</span
+                            >
+                            <span class="min-w-0 flex-1">
+                              <span
+                                class="block font-sans text-[0.65rem] uppercase tracking-[0.22em] text-red"
+                                >Studio controller &middot; in transit</span
+                              >
+                              <span
+                                class="mt-2 block font-heading text-lg font-medium leading-snug sm:text-xl"
+                                >Elgato Stream Deck + White
+                                <span class="text-black/35"
+                                  >&middot; coming from the USA</span
+                                ></span
+                              >
+                            </span>
+                            <span
+                              class="shrink-0 pt-4 font-sans text-sm text-black/30 transition-all group-hover:translate-x-1 group-hover:text-red"
+                              >&#8599;</span
+                            >
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 04 — what's next -->
+              <section class="border-t border-black/10 bg-black/[0.03]">
+                <div class="mx-auto w-full max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+                  <div
+                    class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
+                  >
+                    <p data-reveal class="font-sans text-lg text-red sm:text-xl">04</p>
+                    <div>
+                      <h2
+                        data-reveal
+                        class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                      >
+                        One thing still missing.
+                      </h2>
+                      <p
+                        data-reveal
+                        class="mt-6 max-w-2xl font-sans text-base leading-relaxed text-black/70 lg:text-lg"
+                      >
+                        A PC. RAM prices keep going up and I keep waiting for them to come down. It
+                        will happen &mdash; the keyboard took an email and a launch date, this one
+                        just takes patience.
+                      </p>
+                      <div
+                        data-reveal
+                        class="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-sans text-lg lg:text-xl"
+                      >
+                        <a
+                          href="/gaming/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >What I&rsquo;m playing &rarr;</a
+                        >
+                        <a
+                          href="/content/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >Setup reels &rarr;</a
+                        >
+                        <a
+                          href="/"
+                          class="underline decoration-black/25 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                          >About me &rarr;</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </main>
+        </div>
+        <div
+          data-menu-backdrop
+          data-open="false"
+          class="pointer-events-none fixed inset-0 z-[500] bg-black/60 opacity-0 transition-opacity duration-500 data-[open=true]:pointer-events-auto data-[open=true]:opacity-100 md:hidden"
+        ></div>
+        <aside
+          data-menu-panel
+          data-open="false"
+          class="fixed inset-y-0 right-0 z-[501] flex w-[78vw] max-w-xs translate-x-full flex-col bg-black px-6 py-5 font-sans text-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] data-[open=true]:translate-x-0 md:hidden"
+        >
+          <button
+            type="button"
+            data-menu-close
+            class="self-end text-lg transition-opacity hover:opacity-60"
+          >
+            Close
+          </button>
+          <ul class="mt-10 flex flex-col gap-6 text-3xl">
+            <li><a href="/" data-menu-close>Home</a></li>
+            <li><a href="/setup/" data-menu-close>Setup</a></li>
+            <li><a href="/content/" data-menu-close>Content</a></li>
+            <li><a href="/gaming/" data-menu-close>Gaming</a></li>
+            <li><a href="/projects/" data-menu-close>Projects</a></li>
+          </ul>
+          <p class="mt-auto text-lg opacity-70">Pune: <span data-local-time>--:-- --</span></p>
+        </aside>
       </div>
     </div>
+    <!-- Inverting lens that trails the pointer. It sits outside the barba
+         container so it survives page swaps, and above everything except the
+         loading curtain. `backdrop-filter` inverts whatever it passes over. -->
+    <div
+      data-cursor
+      class="pointer-events-none fixed left-0 top-0 z-[600] h-16 w-16 rounded-full opacity-0 [backdrop-filter:invert(1)] max-[1024px]:hidden"
+    ></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
