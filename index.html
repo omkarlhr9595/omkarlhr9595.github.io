@@ -199,124 +199,321 @@
             class="relative bg-white pb-[16svh] pt-[14svh] text-black [--cut:7vw] [clip-path:polygon(0_var(--cut),100%_0,100%_100%,0_100%)]"
           >
             <div data-cover-inner class="mx-auto w-full max-w-6xl px-6 sm:px-10">
-              <p
+              <div
                 data-reveal
-                class="font-sans text-sm uppercase tracking-[0.25em] text-black/50 sm:text-base"
+                class="flex items-baseline justify-between gap-6 border-b border-black/15 pb-5"
               >
-                About
-              </p>
+                <p class="font-sans text-sm uppercase tracking-[0.25em] text-black/50 sm:text-base">
+                  About
+                </p>
+                <p class="font-sans text-xs uppercase tracking-[0.25em] text-black/40 sm:text-sm">
+                  Pune, India
+                </p>
+              </div>
+
               <h2
                 data-reveal
-                class="mt-8 max-w-4xl font-heading text-[clamp(1.6rem,3.6vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
+                class="mt-10 max-w-5xl font-heading text-[clamp(1.6rem,3.6vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em] sm:mt-14"
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
+                I&rsquo;m Omkar &mdash; a software engineer at
+                <a
+                  href="https://www.azodha.com"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  class="text-red underline decoration-red/30 underline-offset-[0.15em] transition-colors hover:decoration-red"
+                  >Azodha</a
+                >, shipping across mobile and frontend. Off the clock I&rsquo;m rebuilding my desk,
+                holding a DualSense, or in front of a classroom teaching Flutter.
               </h2>
-              <div class="mt-16 grid gap-10 sm:mt-24 sm:grid-cols-2 sm:gap-16">
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                  ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                  esse cillum dolore eu fugiat nulla pariatur.
-                </p>
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium.
-                </p>
+
+              <div class="mt-16 grid gap-12 sm:mt-24 sm:grid-cols-[1.35fr_1fr] sm:gap-16">
+                <div class="space-y-6">
+                  <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                    I started as a React Native intern in 2021 and never really left the mobile
+                    side. Today I sit between the mobile and frontend teams at Azodha &mdash;
+                    Flutter on one screen, the web app on the other &mdash; which mostly means I get
+                    to care about how a thing feels on every device it lands on.
+                  </p>
+                  <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                    I also go back to IMCC, the college where I did my MCA, as a guest lecturer.
+                    Teaching Flutter and software development to students who are exactly where I
+                    was a few years ago is the fastest way I know to find the holes in my own
+                    understanding.
+                  </p>
+                  <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
+                    Outside work it&rsquo;s the same instinct pointed somewhere else: a desk I keep
+                    tuning, a PS5 I waited years for, and a camera pointed at both.
+                  </p>
+                </div>
+
+                <dl
+                  data-reveal
+                  class="h-fit divide-y divide-black/10 border-y border-black/10 font-sans"
+                >
+                  <div class="flex items-baseline justify-between gap-6 py-4">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-black/40">Role</dt>
+                    <dd class="text-right text-base lg:text-lg">Software Engineer</dd>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-6 py-4">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-black/40">Company</dt>
+                    <dd class="text-right text-base lg:text-lg">Azodha</dd>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-6 py-4">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-black/40">Stack</dt>
+                    <dd class="text-right text-base lg:text-lg">Flutter &middot; React &middot; TS</dd>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-6 py-4">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-black/40">Teaching</dt>
+                    <dd class="text-right text-base lg:text-lg">Guest lecturer, IMCC</dd>
+                  </div>
+                  <div class="flex items-baseline justify-between gap-6 py-4">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-black/40">Based</dt>
+                    <dd class="text-right text-base lg:text-lg">Pune, Maharashtra</dd>
+                  </div>
+                </dl>
               </div>
 
-              <div class="mt-24 grid gap-12 sm:mt-32 sm:grid-cols-3">
+              <div class="mt-24 grid gap-12 border-y border-black/10 py-12 sm:mt-32 sm:grid-cols-3">
                 <div data-reveal>
-                  <p class="font-heading text-5xl font-semibold lg:text-6xl">08</p>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">2021</p>
                   <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">
-                    Years shipping software
+                    Writing code people actually use
                   </p>
                 </div>
                 <div data-reveal>
-                  <p class="font-heading text-5xl font-semibold lg:text-6xl">24</p>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">06</p>
                   <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">
-                    Projects in the wild
+                    Teams I&rsquo;ve built with
                   </p>
                 </div>
                 <div data-reveal>
-                  <p class="font-heading text-5xl font-semibold lg:text-6xl">∞</p>
-                  <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">Hours in game</p>
+                  <p class="font-heading text-5xl font-semibold lg:text-6xl">MCA</p>
+                  <p class="mt-4 font-sans text-base text-black/60 lg:text-lg">
+                    First Class with Distinction
+                  </p>
                 </div>
               </div>
 
-              <h3
-                data-reveal
-                class="mt-28 max-w-3xl font-heading text-[clamp(1.4rem,2.8vw,2.25rem)] font-semibold leading-[1.2] tracking-[-0.01em] sm:mt-40"
-              >
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-              </h3>
+              <!-- Work. A sticky section label in the left gutter with the
+                   entries scrolling past it, so the heading stays anchored for
+                   the whole run of the list. -->
+              <div class="mt-28 grid gap-10 sm:mt-40 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-12">
+                <h3
+                  data-reveal
+                  class="font-heading text-[clamp(1.4rem,2.8vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.01em] sm:sticky sm:top-28 sm:self-start"
+                >
+                  Work
+                </h3>
 
-              <div class="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-16">
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                  adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                  dolore magnam aliquam quaerat voluptatem.
-                </p>
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-                  laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure
-                  reprehenderit qui in ea voluptate velit esse quam nihil molestiae.
-                </p>
+                <ol class="divide-y divide-black/10 border-y border-black/10">
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">
+                        Azodha
+                        <span
+                          class="ml-2 align-middle font-sans text-xs uppercase tracking-[0.18em] text-red"
+                          >Now</span
+                        >
+                      </p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Dec 2023 &ndash; Present &middot; 2 yrs 9 mos
+                      </p>
+                    </div>
+                    <ul class="mt-5 space-y-2 font-sans text-base text-black/70 lg:text-lg">
+                      <li class="flex flex-wrap justify-between gap-x-6">
+                        <span>Software Engineer &middot; Full-time</span>
+                        <span class="text-black/40">Mar 2024 &ndash; Present</span>
+                      </li>
+                      <li class="flex flex-wrap justify-between gap-x-6">
+                        <span>Mobile Engineer &middot; Internship</span>
+                        <span class="text-black/40">Dec 2023 &ndash; Mar 2024</span>
+                      </li>
+                    </ul>
+                    <p class="mt-4 font-sans text-sm text-black/45 lg:text-base">
+                      Pune &middot; On-site &middot; Mobile &amp; frontend teams
+                    </p>
+                  </li>
+
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">Golain</p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Oct 2023 &ndash; Dec 2023 &middot; 3 mos
+                      </p>
+                    </div>
+                    <p class="mt-4 font-sans text-base text-black/70 lg:text-lg">
+                      Mobile Engineer &middot; Internship
+                    </p>
+                    <p class="mt-2 font-sans text-sm text-black/45 lg:text-base">
+                      Pune &middot; On-site
+                    </p>
+                  </li>
+
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">
+                        Vforesee Technologies
+                      </p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Jun 2023 &ndash; Aug 2023 &middot; 3 mos
+                      </p>
+                    </div>
+                    <p class="mt-4 font-sans text-base text-black/70 lg:text-lg">
+                      Software Engineer &middot; Internship
+                    </p>
+                    <p class="mt-2 font-sans text-sm text-black/45 lg:text-base">
+                      Remote &middot; Built &ldquo;CropConnect&rdquo;
+                    </p>
+                  </li>
+
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">
+                        Smart Pacey Official
+                      </p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Jul 2022 &ndash; Oct 2022 &middot; 4 mos
+                      </p>
+                    </div>
+                    <p class="mt-4 font-sans text-base text-black/70 lg:text-lg">
+                      Web Development Teacher &middot; Full-time
+                    </p>
+                    <p class="mt-2 font-sans text-sm text-black/45 lg:text-base">
+                      Chh. Sambhajinagar &middot; On-site
+                    </p>
+                  </li>
+
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">
+                        Docon Technologies
+                      </p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Dec 2021 &ndash; May 2022 &middot; 6 mos
+                      </p>
+                    </div>
+                    <p class="mt-4 font-sans text-base text-black/70 lg:text-lg">
+                      React Native Developer &middot; Internship
+                    </p>
+                    <p class="mt-2 font-sans text-sm text-black/45 lg:text-base">Pune</p>
+                  </li>
+
+                  <li data-reveal class="group py-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-2xl font-semibold lg:text-3xl">MargHealth</p>
+                      <p class="font-sans text-base text-black/50 lg:text-lg">
+                        Oct 2021 &ndash; Nov 2021 &middot; 2 mos
+                      </p>
+                    </div>
+                    <p class="mt-4 font-sans text-base text-black/70 lg:text-lg">
+                      React Native Developer &middot; Internship
+                    </p>
+                    <p class="mt-2 font-sans text-sm text-black/45 lg:text-base">
+                      Pune &middot; Where it all started
+                    </p>
+                  </li>
+                </ol>
               </div>
 
-              <ul class="mt-28 divide-y divide-black/10 border-y border-black/10 sm:mt-40">
-                <li
+              <!-- Education. Same gutter rhythm as Work, but the entries are
+                   cards rather than rows so the two lists don't read as one. -->
+              <div class="mt-28 grid gap-10 sm:mt-40 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-12">
+                <h3
                   data-reveal
-                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
+                  class="font-heading text-[clamp(1.4rem,2.8vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.01em] sm:sticky sm:top-28 sm:self-start"
                 >
-                  <span>Lorem ipsum dolor</span>
-                  <span class="text-black/50">2026</span>
-                </li>
-                <li
-                  data-reveal
-                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
-                >
-                  <span>Consectetur adipiscing</span>
-                  <span class="text-black/50">2025</span>
-                </li>
-                <li
-                  data-reveal
-                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
-                >
-                  <span>Sed do eiusmod tempor</span>
-                  <span class="text-black/50">2024</span>
-                </li>
-                <li
-                  data-reveal
-                  class="flex items-baseline justify-between gap-6 py-6 font-sans text-lg lg:text-xl"
-                >
-                  <span>Ut labore et dolore</span>
-                  <span class="text-black/50">2023</span>
-                </li>
-              </ul>
+                  Education
+                </h3>
 
-              <div class="mt-28 grid gap-10 sm:mt-40 sm:grid-cols-2 sm:gap-16">
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                  praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
-                  excepturi sint occaecati cupiditate non provident.
-                </p>
-                <p data-reveal class="font-sans text-lg leading-relaxed text-black/70 lg:text-xl">
-                  Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et
-                  dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio nam libero
-                  tempore, cum soluta nobis est eligendi optio.
-                </p>
+                <div class="grid gap-5">
+                  <article data-reveal class="border border-black/12 bg-black/[0.02] p-7 sm:p-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-xl font-semibold lg:text-2xl">
+                        Master of Computer Applications
+                      </p>
+                      <p class="font-sans text-base text-black/50">Oct 2022 &ndash; Jun 2024</p>
+                    </div>
+                    <p class="mt-3 font-sans text-base text-black/70 lg:text-lg">
+                      MES&rsquo; Institute of Management &amp; Career Courses (IMCC), Pune
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-2 font-sans text-sm">
+                      <span class="border border-red/30 px-3 py-1 text-red"
+                        >First Class with Distinction</span
+                      >
+                      <span class="border border-black/15 px-3 py-1 text-black/60"
+                        >Coding Club, core member</span
+                      >
+                      <span class="border border-black/15 px-3 py-1 text-black/60"
+                        >Now a guest lecturer here</span
+                      >
+                    </div>
+                  </article>
+
+                  <article data-reveal class="border border-black/12 bg-black/[0.02] p-7 sm:p-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-xl font-semibold lg:text-2xl">
+                        B.Sc. Information Technology
+                      </p>
+                      <p class="font-sans text-base text-black/50">Jan 2019 &ndash; May 2022</p>
+                    </div>
+                    <p class="mt-3 font-sans text-base text-black/70 lg:text-lg">
+                      Deogiri College, Chh. Sambhajinagar
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-2 font-sans text-sm">
+                      <span class="border border-black/15 px-3 py-1 text-black/60">83.30%</span>
+                    </div>
+                  </article>
+
+                  <article data-reveal class="border border-black/12 bg-black/[0.02] p-7 sm:p-8">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                      <p class="font-heading text-xl font-semibold lg:text-2xl">
+                        XII &middot; Science
+                      </p>
+                      <p class="font-sans text-base text-black/50">Jun 2018 &ndash; Mar 2019</p>
+                    </div>
+                    <p class="mt-3 font-sans text-base text-black/70 lg:text-lg">
+                      B.S. Padalkar Jr. College
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-2 font-sans text-sm">
+                      <span class="border border-black/15 px-3 py-1 text-black/60">74.30%</span>
+                    </div>
+                  </article>
+                </div>
               </div>
 
-              <p
-                data-reveal
-                class="mt-28 max-w-4xl font-sans text-lg leading-relaxed text-black/70 sm:mt-40 lg:text-xl"
-              >
-                Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-                eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
-                rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-                consequatur aut perferendis doloribus asperiores repellat.
-              </p>
+              <div class="mt-28 border-t border-black/10 pt-12 sm:mt-40">
+                <p
+                  data-reveal
+                  class="max-w-3xl font-heading text-[clamp(1.4rem,2.8vw,2.25rem)] font-semibold leading-[1.2] tracking-[-0.01em]"
+                >
+                  The rest of it lives on its own pages.
+                </p>
+                <div
+                  data-reveal
+                  class="mt-8 flex flex-wrap gap-x-8 gap-y-3 font-sans text-lg lg:text-xl"
+                >
+                  <a
+                    href="/setup/"
+                    class="underline decoration-black/20 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                    >The desk &rarr;</a
+                  >
+                  <a
+                    href="/gaming/"
+                    class="underline decoration-black/20 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                    >What I&rsquo;m playing &rarr;</a
+                  >
+                  <a
+                    href="/content/"
+                    class="underline decoration-black/20 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                    >Videos &amp; reels &rarr;</a
+                  >
+                  <a
+                    href="/projects/"
+                    class="underline decoration-black/20 underline-offset-4 transition-colors hover:text-red hover:decoration-red"
+                    >Projects &rarr;</a
+                  >
+                </div>
+              </div>
             </div>
           </section>
         </div>
