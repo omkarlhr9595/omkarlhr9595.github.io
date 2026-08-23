@@ -43,8 +43,8 @@
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
-    <script type="module" crossorigin src="/assets/main-V9rzGTdW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-Bwgur0bd.css">
+    <script type="module" crossorigin src="/assets/main-Bg06jhQ5.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-1wv-4fyM.css">
   </head>
   <body class="bg-white">
     <div data-barba="wrapper" class="relative min-h-screen w-full">
@@ -185,7 +185,7 @@
             />
           </picture>
           <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/65"
+            class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/85 sm:from-black/25 sm:via-transparent sm:to-black/65"
           ></div>
 
           <div class="relative mt-auto w-full px-4 pb-10 sm:px-6 sm:pb-14">
@@ -194,7 +194,7 @@
                    the fill so the label reads against whatever is behind it. -->
               <span
                 class="inline-block bg-red py-1.5 pl-3 pr-2 font-sans text-xs uppercase tracking-[0.3em] text-white sm:text-sm"
-                >Setup &mdash; 001</span
+                >Setup</span
               >
             </p>
             <h1
@@ -312,7 +312,10 @@
                     class="grid gap-10 sm:grid-cols-[6rem_1fr] sm:gap-12 lg:grid-cols-[10rem_1fr]"
                   >
                     <p data-reveal class="font-sans text-lg text-red sm:text-xl">02</p>
-                    <div>
+                    <!-- min-w-0: the PDF row below truncates a long filename, and a
+                         nowrap child's min-content would otherwise blow this grid
+                         item — and the whole page — past the viewport on phones. -->
+                    <div class="min-w-0">
                       <h2
                         data-reveal
                         class="max-w-3xl font-heading text-[clamp(1.6rem,3.4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em]"
