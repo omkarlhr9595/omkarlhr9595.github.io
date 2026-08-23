@@ -43,8 +43,8 @@
     />
     <meta name="twitter:image" content="https://omkarlohar.me/assets/og-image.jpg" />
     <meta name="twitter:image:alt" content="Omkar Lohar's desk setup" />
-    <script type="module" crossorigin src="/assets/main-Bg06jhQ5.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-1wv-4fyM.css">
+    <script type="module" crossorigin src="/assets/main-CU9P6k5m.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-DWZ2fLgb.css">
   </head>
   <body class="bg-white">
     <div data-barba="wrapper" class="relative min-h-screen w-full">
@@ -164,14 +164,11 @@
           </button>
         </nav>
 
-        <!-- Hero closes on a shelf of case spines rather than a photograph:
-             the collection is the subject, and spines read as a collection at a
-             glance without needing any cover art to exist yet. -->
         <header
           class="sticky top-0 isolate flex min-h-[100svh] w-full flex-col overflow-hidden bg-white text-black"
         >
           <div
-            class="mx-auto flex w-full max-w-[110rem] flex-1 flex-col justify-center gap-7 px-4 pb-14 pt-32 sm:gap-9 sm:px-6 sm:pt-40"
+            class="mx-auto flex w-full max-w-[110rem] flex-col gap-5 px-4 pb-6 pt-24 sm:gap-7 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32 [@media(max-height:820px)]:pt-20"
           >
             <p class="once-in">
               <span
@@ -180,7 +177,7 @@
               >
             </p>
             <h1
-              class="once-in font-heading text-[clamp(2.75rem,9vw,8.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
+              class="once-in font-heading text-[clamp(2.5rem,min(8.5vw,11svh),8.5rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
             >
               Waited years<br />
               for a <span class="text-red">PS5.</span><br />
@@ -192,246 +189,36 @@
             </p>
           </div>
 
-          <div class="w-full">
-            <div class="mx-auto w-full max-w-[110rem] px-4 sm:px-6">
-              <div class="once-in flex items-end gap-[3px] overflow-hidden sm:gap-1">
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
+          <!-- The hero closes on the console itself: a 36-frame turntable drawn
+               into a canvas. Frames are ~12KB webp each, the first one paints on
+               its own and the rest stream in behind it, so nothing here blocks
+               the hero. -->
+          <div class="flex w-full flex-1 flex-col">
+            <div
+              class="mx-auto flex w-full max-w-[110rem] flex-1 flex-col justify-center px-4 sm:px-6"
+            >
+              <div
+                data-spin360
+                data-spin-dir="/assets/ps5-spinset"
+                data-spin-frames="36"
+                class="once-in group relative w-full touch-pan-y select-none bg-white"
+              >
+                <canvas
+                  width="1200"
+                  height="500"
+                  role="img"
+                  aria-label="PlayStation 5 shown from every angle"
+                  class="block h-[19svh] w-full cursor-grab mix-blend-multiply transition-transform duration-500 ease-out active:cursor-grabbing sm:h-[21svh] md:group-hover:scale-[1.04] lg:h-[22svh] [@media(max-height:820px)]:h-[17svh]"
+                ></canvas>
+                <p
+                  class="pointer-events-none mt-4 text-center font-sans text-xs uppercase tracking-[0.22em] text-black/35 sm:mt-5"
                 >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Grand Theft Auto V</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Uncharted: Legacy of Thieves Collection</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Uncharted: The Nathan Drake Collection</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Marvel&rsquo;s Spider-Man 2</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Horizon Zero Dawn Complete Edition</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Mortal Kombat 11</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >EA Sports FC 25</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Batman: Arkham Collection</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Marvel&rsquo;s Spider-Man Remastered</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Mortal Kombat 1</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Red Dead Redemption 2</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Forza Horizon 5</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >LIMBO</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >INSIDE</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 2</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 3</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 4</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 5</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 6</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil 7 Biohazard</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Resident Evil Village</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >It Takes Two</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >A Way Out</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Alan Wake Remastered</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >WRC 10</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Need for Speed Heat</span
-                  >
-                </div>
-                <div
-                  class="flex h-[130px] w-[21px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-[188px] sm:w-[28px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >F1 25</span
-                  >
-                </div>
-                <div
-                  class="flex h-32 w-[22px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-48 sm:w-[30px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Assetto Corsa Competizione</span
-                  >
-                </div>
-                <div
-                  class="flex h-36 w-[24px] shrink-0 items-center justify-center rounded-t-[2px] bg-[#3d77f0] shadow-[0_-6px_16px_rgba(0,0,0,0.14)] sm:h-52 sm:w-[33px]"
-                >
-                  <span
-                    class="rotate-180 whitespace-nowrap font-heading text-[0.55rem] font-bold uppercase tracking-wide text-white [writing-mode:vertical-rl] sm:text-[0.65rem]"
-                    >Metal Gear Solid V: The Definitive Experience</span
-                  >
-                </div>
+                  Drag to spin
+                </p>
               </div>
-              <div class="h-[6px] w-full bg-black"></div>
             </div>
 
-            <div class="mx-auto w-full max-w-[110rem] px-4 py-7 sm:px-6 sm:py-8">
+            <div class="mx-auto w-full max-w-[110rem] px-4 py-4 sm:px-6 sm:py-5">
               <dl class="flex flex-wrap gap-x-10 gap-y-4 font-sans text-base sm:text-lg">
                 <div>
                   <dt class="text-black/40">Games</dt>
