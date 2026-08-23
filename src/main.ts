@@ -410,21 +410,39 @@ function settleTriggers() {
 
 // Scroll reveals for anything below the hero. The hero's own intro runs off the
 // curtain timeline (`.once-in`), so these are kept on a separate hook.
+//
+// These are driven by an observer rather than a ScrollTrigger start position.
+// A trigger asks "has the page scrolled far enough", and the last elements on a
+// page answer "no" forever: their start lands at — or past — the document's
+// maximum scroll, so the page can never reach it and `opacity: 0` sticks. An
+// observer asks "is it on screen", which is answerable even when the element is
+// already sitting in the viewport at full scroll. Wide layouts are where this
+// bit; tall phone layouts scroll far enough to hide it.
+const revealWatchers: IntersectionObserver[] = [];
+
 function mountReveals(container: HTMLElement) {
-  container.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
-    gsap.from(el, {
-      y: 48,
-      opacity: 0,
-      duration: 1.1,
-      ease: "expo.out",
-      // `clamp()` pins the start inside the scrollable range. Without it the
-      // last elements on a short page ask to be triggered at a scroll position
-      // past the document's maximum — the page can never scroll that far, the
-      // trigger never fires, and `from`'s opacity:0 leaves them invisible for
-      // good. Tall phone layouts hide the bug; wide desktop ones expose it.
-      scrollTrigger: { trigger: el, start: "clamp(top 88%)", once: true },
-    });
-  });
+  const targets = container.querySelectorAll<HTMLElement>("[data-reveal]");
+  if (!targets.length) return;
+
+  gsap.set(targets, { y: 48, opacity: 0 });
+
+  const watcher = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        watcher.unobserve(entry.target);
+        gsap.to(entry.target, { y: 0, opacity: 1, duration: 1.1, ease: "expo.out" });
+      });
+    },
+    // A small absolute inset rather than a percentage: the reveal should hold
+    // off until the element is properly on screen, but the tail of a page is
+    // only ~100px deep, and a percentage of a tall viewport puts that line
+    // somewhere the last elements can never reach.
+    { rootMargin: "0px 0px -48px 0px" }
+  );
+
+  targets.forEach((el) => watcher.observe(el));
+  revealWatchers.push(watcher);
 }
 
 // The cover panel: its diagonal leading edge (`--cut`) closes to flat over the
@@ -583,6 +601,7 @@ function mountNavFlip(container: HTMLElement) {
 // Triggers are measured against the container being replaced, so they have to go
 // before the next one is mounted or every start/end position is stale.
 function clearReveals() {
+  revealWatchers.splice(0).forEach((watcher) => watcher.disconnect());
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 }
 
@@ -608,6 +627,11 @@ barba.init({
         current.container.style.display = "none";
       },
       beforeEnter({ next }) {
+        // Follow a link from the foot of one page and the browser keeps that
+        // scroll position on the next one, dropping the reader into its middle.
+        // The curtain is down here, so jumping to the top is unseen — and it has
+        // to happen before the reveals and triggers below are measured.
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
         setLoadingWord(next.namespace);
         armOnceIn(next.container, "transition");
         mountCover(next.container);
