@@ -170,8 +170,8 @@ function playGreeting(container: HTMLElement): Promise<void> {
 }
 
 // Nav: the Pune clock and the mobile drawer. Both are wired at the document
-// level rather than per-container, so they keep working across barba swaps
-// without needing to be re-mounted on every page enter.
+// level rather than per-container, so their listeners survive barba swaps; the
+// clock still needs a repaint on enter because the markup itself is replaced.
 const puneTime = () =>
   new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Kolkata",
@@ -377,6 +377,10 @@ mountCursor();
 mountLinkPreview();
 paintClocks();
 setInterval(paintClocks, 15_000);
+// Each page ships its own nav/footer markup with a `--:-- --` placeholder, so a
+// barba swap drops in unpainted clocks. Repaint on enter instead of leaving them
+// blank until the next 15s tick.
+barba.hooks.beforeEnter(() => paintClocks());
 
 document.addEventListener("click", (event) => {
   const target = event.target as HTMLElement | null;
@@ -439,7 +443,15 @@ function mountCover(container: HTMLElement) {
 
   // White panel under a white nav is unreadable, so the nav flips to black the
   // moment the panel's edge reaches it — and back on the way up.
-  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  flipNavOn(container, section);
+}
+
+// Each page ships its own nav, and during a barba enter the outgoing container
+// is still in the DOM — a document-wide lookup would bind the trigger to the
+// nav that is about to be thrown away, so the incoming one never flips. Scope
+// to the container being mounted.
+function flipNavOn(container: HTMLElement, section: HTMLElement) {
+  const nav = container.querySelector<HTMLElement>("[data-nav]");
   if (!nav) return;
 
   ScrollTrigger.create({
@@ -455,15 +467,9 @@ function mountCover(container: HTMLElement) {
 // a cover, so any element marked `data-nav-flip` can drive it.
 function mountNavFlip(container: HTMLElement) {
   const section = container.querySelector<HTMLElement>("[data-nav-flip]");
-  const nav = document.querySelector<HTMLElement>("[data-nav]");
-  if (!section || !nav) return;
+  if (!section) return;
 
-  ScrollTrigger.create({
-    trigger: section,
-    start: () => `top ${nav.offsetHeight}px`,
-    onEnter: () => (nav.dataset.onLight = "true"),
-    onLeaveBack: () => (nav.dataset.onLight = "false"),
-  });
+  flipNavOn(container, section);
 }
 
 // Triggers are measured against the container being replaced, so they have to go
