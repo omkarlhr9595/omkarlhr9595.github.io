@@ -446,6 +446,114 @@ function mountCover(container: HTMLElement) {
   flipNavOn(container, section);
 }
 
+// A 36-frame turntable painted into a canvas. Only the first frame is awaited
+// before the console appears; the rest stream in behind it and interaction
+// unlocks once the set is complete. Dragging the full width of the canvas
+// turns the object exactly once, which keeps the gearing the same on a phone
+// and on a monitor.
+function mountSpin360(container: HTMLElement) {
+  const root = container.querySelector<HTMLElement>("[data-spin360]");
+  const canvas = root?.querySelector("canvas");
+  const ctx = canvas?.getContext("2d");
+  if (!root || !canvas || !ctx) return;
+
+  const dir = root.dataset.spinDir ?? "";
+  const count = Number(root.dataset.spinFrames ?? 36);
+  const frames: HTMLImageElement[] = [];
+  let index = 0;
+
+  // The source frames are 16:9 with the console occupying a flat band across
+  // the middle; the rest is empty studio white. Everything outside that band is
+  // cropped away and the band is then fitted whole, so the console is as large
+  // as the box allows and never clipped, whatever the box's aspect.
+  const BAND_TOP = 0.22;
+  const BAND_HEIGHT = 0.58;
+
+  const paint = () => {
+    const frame = frames[Math.round(index) % count];
+    if (!frame?.complete || !frame.naturalWidth) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (!w || !h) return;
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+    }
+
+    const sy = frame.naturalHeight * BAND_TOP;
+    const sh = frame.naturalHeight * BAND_HEIGHT;
+    const sw = frame.naturalWidth;
+    const scale = Math.min(canvas.width / sw, canvas.height / sh);
+    const dw = sw * scale;
+    const dh = sh * scale;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(frame, 0, sy, sw, sh, (canvas.width - dw) / 2, (canvas.height - dh) / 2, dw, dh);
+  };
+
+  const load = (i: number) =>
+    new Promise<void>((resolve) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = `${dir}/SR-${1001 + i}.webp`;
+      img.onload = img.onerror = () => resolve();
+      frames[i] = img;
+    });
+
+  const step = () => {
+    index = (index + count) % count;
+    paint();
+  };
+
+  let pointer = 0;
+  let startIndex = 0;
+  let dragging = false;
+
+  canvas.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    pointer = event.clientX;
+    startIndex = index;
+    canvas.setPointerCapture(event.pointerId);
+  });
+
+  canvas.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    // One canvas width of travel === one full revolution.
+    index = startIndex - ((event.clientX - pointer) / canvas.clientWidth) * count;
+    step();
+  });
+
+  const release = (event: PointerEvent) => {
+    if (!dragging) return;
+    dragging = false;
+    index = Math.round(index);
+    step();
+    canvas.releasePointerCapture(event.pointerId);
+  };
+  canvas.addEventListener("pointerup", release);
+  canvas.addEventListener("pointercancel", release);
+
+  // The canvas is re-measured on resize; once barba has swapped this container
+  // away the handler retires itself rather than redrawing into a detached node.
+  const onResize = () => {
+    if (root.isConnected) paint();
+    else window.removeEventListener("resize", onResize);
+  };
+  window.addEventListener("resize", onResize);
+
+  // The console shows up as soon as frame 0 lands; the rest stream in behind it.
+  // Dragging early is harmless — a frame that has not arrived yet simply leaves
+  // the previous one on screen until it does.
+  void load(0).then(() => {
+    paint();
+    return Promise.all(Array.from({ length: count - 1 }, (_, i) => load(i + 1))).then(() => {
+      root.dataset.ready = "true";
+      paint();
+    });
+  });
+}
+
 // Each page ships its own nav, and during a barba enter the outgoing container
 // is still in the DOM — a document-wide lookup would bind the trigger to the
 // nav that is about to be thrown away, so the incoming one never flips. Scope
@@ -489,6 +597,7 @@ barba.init({
         armOnceIn(next.container, "load");
         mountCover(next.container);
         mountNavFlip(next.container);
+        mountSpin360(next.container);
         mountReveals(next.container);
         settleTriggers();
         playGreeting(next.container);
@@ -503,6 +612,7 @@ barba.init({
         armOnceIn(next.container, "transition");
         mountCover(next.container);
         mountNavFlip(next.container);
+        mountSpin360(next.container);
         mountReveals(next.container);
       },
       async enter({ next }) {
