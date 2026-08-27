@@ -54,6 +54,9 @@ button,
 
 .link-preview-inner {
   width: var(--lp-w);
+  /* The card is white on white sections, so it needs a lift of its own to read
+     as a floating panel rather than a hole in the page. */
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
   will-change: transform;
 }
 
@@ -88,11 +91,20 @@ button,
   height: calc(clamp(3.5rem, 5.5vw, 4.75rem) * 0.86);
 }
 
-.link-preview-title {
+/* Titles and blurbs come from whatever the destination put in its meta tags,
+   so both are clamped rather than trusted to be short. */
+/* `:not(.hidden)` because these rules sit after @tailwind utilities, so a bare
+   `display: -webkit-box` here would beat Tailwind's `.hidden` and an empty
+   title or blurb would still hold its line. */
+.link-preview-clamp:not(.hidden) {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+}
+
+[data-lp-desc].link-preview-clamp:not(.hidden) {
+  -webkit-line-clamp: 3;
 }
 
 @media (max-width: 1024px) {

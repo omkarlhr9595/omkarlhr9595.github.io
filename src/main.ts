@@ -2,6 +2,7 @@ import "./index.css";
 import barba from "@barba/core";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import linkPreviewData from "./link-previews.json";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -223,16 +224,34 @@ function mountCursor() {
 
 // Cursor-following preview window for outbound links, after the reference's
 // `.mouse-pos-list-image`. Every off-site link gets one for free: the card
-// falls back to the destination's domain and the link's own text, and any link
-// that has a `data-preview` image uses that instead. Built in JS and parked on
-// <body> rather than written into each page, so it survives barba swaps and
-// there is nothing to re-mount on enter.
+// shows the destination's own image, title and blurb, scraped from its
+// OpenGraph tags at build time by scripts/fetch-link-previews.mjs and imported
+// as link-previews.json. Nothing is fetched on hover — the site is static and
+// cross-origin HTML is CORS-blocked in the browser anyway — so the card paints
+// instantly and works offline. Markup wins where it is opinionated:
+// `data-preview-title` and `data-preview` override the scraped title and image,
+// and a link the scraper could not reach (Cloudflare, a dead host) falls back
+// to those plus the link's own text. Built in JS and parked on <body> rather
+// than written into each page, so it survives barba swaps and there is nothing
+// to re-mount on enter.
+
+type LinkPreviewMeta = {
+  ok?: boolean;
+  title?: string;
+  description?: string;
+  siteName?: string;
+  domain?: string;
+  image?: string;
+};
+
+const LINK_PREVIEWS: Record<string, LinkPreviewMeta> = linkPreviewData;
 type PreviewRefs = {
   win: HTMLElement;
   inner: HTMLElement;
   media: HTMLElement;
   domain: HTMLElement;
   title: HTMLElement;
+  description: HTMLElement;
   circle: HTMLElement;
 };
 
@@ -249,17 +268,21 @@ function buildPreview(): PreviewRefs {
   win.className = "link-preview";
   win.setAttribute("aria-hidden", "true");
   win.innerHTML = `
-    <div class="link-preview-inner overflow-hidden bg-black text-white">
+    <div class="link-preview-inner overflow-hidden border border-black/10 bg-[#ffffff] text-black">
       <div
         data-lp-media
-        class="hidden aspect-[4/3] w-full bg-black/40 bg-cover bg-center"
+        class="hidden aspect-[4/3] w-full border-b border-black/10 bg-[#ffffff] bg-contain bg-center bg-no-repeat"
       ></div>
       <div data-lp-meta class="flex flex-col gap-2 p-5">
         <p
           data-lp-domain
-          class="font-sans text-[0.65rem] uppercase tracking-[0.22em] text-white/45"
+          class="font-sans text-[0.65rem] uppercase tracking-[0.22em] text-black/40"
         ></p>
-        <p data-lp-title class="link-preview-title font-heading text-lg font-semibold leading-snug"></p>
+        <p data-lp-title class="link-preview-clamp font-heading text-lg font-semibold leading-snug"></p>
+        <p
+          data-lp-desc
+          class="link-preview-clamp font-sans text-xs leading-relaxed text-black/55"
+        ></p>
         <p class="mt-1 font-sans text-xs uppercase tracking-[0.18em] text-red">Open &#8599;</p>
       </div>
     </div>`;
@@ -277,18 +300,34 @@ function buildPreview(): PreviewRefs {
     media: win.querySelector<HTMLElement>("[data-lp-media]")!,
     domain: win.querySelector<HTMLElement>("[data-lp-domain]")!,
     title: win.querySelector<HTMLElement>("[data-lp-title]")!,
+    description: win.querySelector<HTMLElement>("[data-lp-desc]")!,
     circle,
   };
 }
 
-function fillPreview(refs: PreviewRefs, link: HTMLAnchorElement) {
-  refs.domain.textContent = link.hostname.replace(/^www\./, "");
+// Keyed on the href exactly as authored, which is what the scraper walked the
+// markup for; `link.href` is the absolutized form and covers the odd rewrite.
+function lookupPreview(link: HTMLAnchorElement): LinkPreviewMeta {
+  const raw = link.getAttribute("href") ?? "";
+  const meta = LINK_PREVIEWS[raw] ?? LINK_PREVIEWS[link.href];
+  return meta?.ok ? meta : {};
+}
 
-  const label = link.dataset.previewTitle ?? link.textContent?.trim().replace(/\s+/g, " ") ?? "";
+function fillPreview(refs: PreviewRefs, link: HTMLAnchorElement) {
+  const meta = lookupPreview(link);
+
+  refs.domain.textContent = meta.domain ?? link.hostname.replace(/^www\./, "");
+
+  const label =
+    link.dataset.previewTitle || meta.title || link.textContent?.trim().replace(/\s+/g, " ") || "";
   refs.title.textContent = label;
   refs.title.classList.toggle("hidden", !label);
 
-  const image = link.dataset.preview;
+  const blurb = meta.description ?? "";
+  refs.description.textContent = blurb;
+  refs.description.classList.toggle("hidden", !blurb);
+
+  const image = link.dataset.preview ?? meta.image ?? "";
   refs.media.classList.toggle("hidden", !image);
   if (image) refs.media.style.backgroundImage = `url("${image}")`;
 }
