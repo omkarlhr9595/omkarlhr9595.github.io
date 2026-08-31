@@ -11,6 +11,7 @@ export default defineConfig({
         content: resolve(__dirname, "content/index.html"),
         gaming: resolve(__dirname, "gaming/index.html"),
         projects: resolve(__dirname, "projects/index.html"),
+        now: resolve(__dirname, "now/index.html"),
       },
     },
   },

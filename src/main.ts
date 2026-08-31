@@ -14,6 +14,7 @@ const PAGE_NAMES: Record<string, string> = {
   content: "Content",
   gaming: "Gaming",
   projects: "Projects",
+  now: "Now",
 };
 
 function setLoadingWord(namespace: string) {
